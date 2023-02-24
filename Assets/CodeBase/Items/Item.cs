@@ -6,7 +6,7 @@ using CodeBase.Items.Modifiers;
 
 namespace CodeBase.Items
 {
-    public class Item : MonoBehaviour, IGriddable
+    public class Item : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
 

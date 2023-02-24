@@ -1,27 +1,29 @@
-﻿using System.Collections.Generic;
-using CodeBase.Items;
-using UnityEditor;
-using UnityEngine;
+﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-namespace CodeBase.Grid
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using CodeBase.Items;
+using CodeBase.TaskRunner;
+
+namespace CodeBase.GameBoard
 {
     public class ItemsChain
     {
-        private Stack<Item> _chain;
+        private Stack<IGriddable> _chain;
         private ItemType _chainType;
 
         public ItemsChain()
         {
-            _chain = new Stack<Item>();
+            _chain = new Stack<IGriddable>();
         }
 
-        public void AddElement(Item selected)
+        public void AddElement(IGriddable selected)
         {
             if (_chain.Count == 0)
             {
-                _chainType = selected.ItemType;
+                _chainType = selected.Item.ItemType;
                 _chain.Push(selected);
-                selected.Select();
+                selected.Item.Select();
                 return;
             }
 
@@ -29,10 +31,10 @@ namespace CodeBase.Grid
             {
                 while (_chain.Count > 0)
                 {
-                    Item element = _chain.Pop();
-                    if (element != selected)
+                    IGriddable element = _chain.Pop();
+                    if (element.Item != selected.Item)
                     {
-                        element.Deselect();
+                        element.Item.Deselect();
                     }
                     else
                     {
@@ -43,22 +45,28 @@ namespace CodeBase.Grid
             }
             else
             {
-                if (selected.WorldPosition.Near(_chain.Peek().WorldPosition) && selected.ItemType == _chainType)
+                if (selected.Position.Near(_chain.Peek().Position) && selected.Item.ItemType == _chainType)
                 {
                     _chain.Push(selected);
-                    selected.Select();
+                    selected.Item.Select();
                 }
             }
         }
 
-        public void Apply()
+        public async UniTask Apply()
         {
-            foreach (Item item in _chain)
+            if (_chain.Count >= 3)
             {
-                item.SpriteRenderer.color = Color.white;
-            }
+                ITask dissapear = new DissapearTask(_chain);
 
+                await dissapear.Execute();
+            }
+            foreach (IGriddable cell in _chain)
+            {
+                cell.Clear();
+            }
             _chain.Clear();
+         
         }
     }
 }

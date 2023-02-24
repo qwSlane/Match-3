@@ -1,27 +1,43 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using System;
 using UnityEngine;
 using CodeBase.Items;
 
 namespace CodeBase
 {
-    public class Cell : MonoBehaviour
+    public class Cell : MonoBehaviour, IGriddable
     {
-        public BoardPosition _Position;
-        public bool IsEmpty { get; private set; }
+        public BoardPosition Position { get; private set; }
 
-        public bool IsStorable { get; set; }
+        public bool IsEmpty => _isEmpty;
+        
+        public bool IsMovable { get; }
 
-        public Item Item { get; set; }
+        private Item _item;
+        private bool _isEmpty;
+
+        public Item Item
+        {
+            get => _item;
+            set
+            {
+                _item = value;
+                _isEmpty = false;
+            }
+        }
 
         public void Construct(int rowPos, int columnPos)
         {
-            _Position = new BoardPosition(rowPos, columnPos);
+            Position = new BoardPosition(rowPos, columnPos);
         }
 
         public void Clear()
         {
-            IsEmpty = false;
+            Item = default;
+            _isEmpty = true;
         }
+
+       
     }
 }

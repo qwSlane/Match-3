@@ -1,12 +1,11 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using System;
-using CodeBase.Grid;
-using CodeBase.Items;
 using UnityEngine;
+using CodeBase.GameBoard;
+using CodeBase.Items;
+using CodeBase.TaskRunner;
 using CodeBase.Services;
 using CodeBase.Services.AssetService;
-using UnityEditor;
 
 namespace CodeBase.Infrastructure
 {
@@ -15,10 +14,10 @@ namespace CodeBase.Infrastructure
         [SerializeField] private Camera _camera;
         [SerializeField] private InputService _inputService;
 
-        private const int ItemsLayerMask = 1 << 7;
         private GameFactory _gameFactory;
-        private GameBoard _gameBoard;
+        private GameBoard.GameBoard _gameBoard;
         private ItemsChain _itemsChain;
+        private MoveTask _moveTask;
 
         public void Awake()
         {
@@ -28,8 +27,10 @@ namespace CodeBase.Infrastructure
             _inputService.Press += Press;
             _inputService.PressUp += PressUp;
 
-            _gameBoard = new GameBoard();
+            _gameBoard = new GameBoard.GameBoard();
             _itemsChain = new ItemsChain();
+
+            _moveTask = new MoveTask(_gameBoard);
 
             _gameBoard.InitBoard(InitializeGrid());
         }
@@ -38,25 +39,25 @@ namespace CodeBase.Infrastructure
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _gameBoard.Fill(_gameFactory);
+                _gameBoard.Fill(_gameFactory, transform);
             }
         }
 
         private void Press(Vector3 mousePos)
         {
             Ray ray = _camera.ScreenPointToRay(mousePos);
-            RaycastHit hit;
             BoardPosition screenPos = new BoardPosition(ray.origin);
             if (_gameBoard.IsOnBoard(screenPos))
             {
-                Item selected = _gameBoard.Cell(screenPos.PosX, screenPos.PosY).Item;
+                IGriddable selected = _gameBoard[screenPos.PosX, screenPos.PosY];
                 _itemsChain.AddElement(selected);
             }
         }
 
-        private void PressUp()
+        private async void PressUp()
         {
-           _itemsChain.Apply();
+            await _itemsChain.Apply();
+            _moveTask.CreatePath();
         }
 
         private Cell[,] InitializeGrid()
