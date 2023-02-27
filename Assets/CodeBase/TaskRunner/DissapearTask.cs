@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using CodeBase.Items;
+using CodeBase.BoardItems.Cell;
 
 namespace CodeBase.TaskRunner
 {
@@ -14,9 +14,9 @@ namespace CodeBase.TaskRunner
         private const float ScaleDuration = 0.3f;
         private const float FadeDuration = 0.3f;
 
-        private readonly IEnumerable<IGriddable> _items;
+        private readonly IEnumerable<IGridCell> _items;
 
-        public DissapearTask(IEnumerable<IGriddable> items)
+        public DissapearTask(IEnumerable<IGridCell> items)
         {
             _items = items;
         }
@@ -25,17 +25,16 @@ namespace CodeBase.TaskRunner
         {
             Sequence sequence = DOTween.Sequence();
 
-            foreach (IGriddable griddable in _items)
+            foreach (IGridCell cell in _items)
             {
                 _ = sequence
-                    .Join(griddable.Item.transform.DOScale(Vector3.zero, ScaleDuration))
-                    .Join(griddable.Item.SpriteRenderer.DOFade(0, FadeDuration));
+                    .Join(cell.Item.Transform.DOScale(Vector3.zero, ScaleDuration))
+                    .Join(cell.Item.SpriteRenderer.DOFade(0, FadeDuration));
             }
 
             await sequence.WithCancellation(cancellationToken);
 
             //reclaim items
         }
-
     }
 }

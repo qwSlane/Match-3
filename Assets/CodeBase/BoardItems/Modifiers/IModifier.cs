@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-namespace CodeBase.Items.Modifiers
+namespace CodeBase.BoardItems.Modifiers
 {
     public interface IModifier
     {

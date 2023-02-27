@@ -2,15 +2,14 @@
 
 using System;
 
-namespace CodeBase.Items
+namespace CodeBase.BoardItems
 {
     [Serializable]
     public enum ItemType
     {
-        Red,
-        Green,
-        Blue,
-        Yellow,
-        Pink
+        Token,
+        Ice,
+        Stone,
+        Stone2
     }
 }

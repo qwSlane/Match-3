@@ -1,16 +1,16 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-namespace CodeBase.Items
+namespace CodeBase.BoardItems.Cell
 {
-    public interface IGriddable
+    public interface IGridCell
     {
         public BoardPosition Position { get; }
 
-        public bool IsMovable { get; }
-
         public bool IsEmpty { get; }
 
-        public Item Item { get; set; }
+        public bool IsStorable { get; }
+
+        public ICellItem Item { get;}
 
         public void Clear();
     }

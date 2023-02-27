@@ -9,9 +9,9 @@ namespace CodeBase.Services
     {
         public event Action<Vector3> Press;
         public event Action PressUp;
+
         private void Update()
         {
-        
             if (Input.GetMouseButton(0))
             {
                 Press?.Invoke(Input.mousePosition);
@@ -22,6 +22,5 @@ namespace CodeBase.Services
                 PressUp?.Invoke();
             }
         }
-    
     }
 }

@@ -3,14 +3,13 @@
 using System;
 using UnityEngine;
 
-namespace CodeBase.Items
+namespace CodeBase.BoardItems
 {
-    
     public class BoardPosition
     {
-        public int PosX { get;}
-        
-        public int PosY { get;}
+        public int PosX { get; }
+
+        public int PosY { get; }
 
         public BoardPosition(int posX, int posY)
         {
@@ -36,6 +35,5 @@ namespace CodeBase.Items
         {
             return new BoardPosition(pos1.PosX - pos2.PosX, pos1.PosY - pos2.PosY);
         }
-        
     }
 }

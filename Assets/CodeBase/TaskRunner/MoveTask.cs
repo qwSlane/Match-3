@@ -1,52 +1,96 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using System.Collections.Generic;
+using UnityEngine;
 using DG.Tweening;
-using CodeBase.Items;
+using Cysharp.Threading.Tasks;
+using CodeBase.Board;
+using CodeBase.BoardItems;
+using CodeBase.BoardItems.Cell;
 
 namespace CodeBase.TaskRunner
 {
     public class MoveTask
     {
         private const float MoveDuration = 0.3f;
-        
-        private GameBoard.GameBoard _gameBoard;
 
-        public MoveTask(GameBoard.GameBoard gameBoard)
+        private GameBoard _gameBoard;
+        private readonly Dictionary<IGridCell, List<Vector3>> _itemPath;
+
+        public MoveTask(GameBoard gameBoard)
         {
             _gameBoard = gameBoard;
+            _itemPath = new Dictionary<IGridCell, List<Vector3>>();
         }
 
-        public void CreatePath()
+        public void InitializeItemsPaths()
+        {
+            foreach (Cell cell in _gameBoard.Cells)
+            {
+                _itemPath[cell] = new List<Vector3>();
+            }
+        }
+
+        public async UniTask FallDown()
         {
             Sequence sequence = DOTween.Sequence();
-            for (int i = 0; i < _gameBoard.Columns; i++)
+            for (int j = 0; j < _gameBoard.Rows; j++)
             {
-                for (int j = 0; j < _gameBoard.Rows; j++)
+                for (int i = 0; i < _gameBoard.Columns; i++)
                 {
                     Cell cell = _gameBoard[i, j];
-                    if (!cell.IsEmpty)
+                    if (cell.IsEmpty == false && cell.Item.IsMovable)
                     {
-                        Item item = cell.Item;
+                        ICellItem item = cell.Item;
                         cell.Clear();
-                        BoardPosition destination = Create(i, j);
-                        _gameBoard[destination.PosX, destination.PosY].Item = item;
-                        sequence.Insert(j/10,
-                            item.transform.DOMove(destination.ToVector(), MoveDuration));
+                        List<Vector3> path = _itemPath[cell];
+                        path.Clear();
+
+                        CreatePath(i, j, path);
+                        if (path.Count >= 1)
+                        {
+                            _ = sequence.Join(
+                                item.Transform.DOPath(path.ToArray(), MoveDuration));
+                            _gameBoard[(int)path[path.Count - 1].x, (int)path[path.Count - 1].y].Item = item;
+                        }
+                        else
+                        {
+                            cell.Item = item;
+                        }
                     }
                 }
             }
-            sequence.SetEase(Ease.Linear);
+            await sequence.SetEase(Ease.Flash);
         }
 
-        private BoardPosition Create(int column, int row)
+        public void CreatePath(int col, int row, List<Vector3> path)
         {
-            bool isonBoard = _gameBoard.IsOnBoard(column, row - 1);
-            bool isEmpty = false;
-            if (isonBoard)
-                isEmpty = _gameBoard[column, row - 1].IsEmpty;
-            if (isonBoard && isEmpty)
+            if (_gameBoard.CanMoveDown(col, row))
             {
-                return Create(column, row - 1);
+                BoardPosition destination = MoveDown(col, row);
+                path.Add(destination.ToVector());
+                CreatePath(destination.PosX, destination.PosY, path);
+                return;
+            }
+            if (_gameBoard.DiagonalRight(col, row))
+            {
+                path.Add(new Vector3(col + 1, row - 1));
+                CreatePath(col + 1, row - 1, path);
+                return;
+            }
+            if (_gameBoard.DiagonalLeft(col, row))
+            {
+                path.Add(new Vector3(col - 1, row - 1));
+                CreatePath(col - 1, row - 1, path);
+                return;
+            }
+        }
+
+        private BoardPosition MoveDown(int column, int row)
+        {
+            if (_gameBoard.CanMoveDown(column, row))
+            {
+                return MoveDown(column, row - 1);
             }
             return new BoardPosition(column, row);
         }
