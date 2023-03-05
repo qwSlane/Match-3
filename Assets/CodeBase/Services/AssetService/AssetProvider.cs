@@ -9,7 +9,7 @@ namespace CodeBase.Services.AssetService
 {
     public class AssetProvider : IAssetProvider
     {
-        private const string AtlasPath = "Items/TokenAtlas";
+        private const string AtlasPath = "Tokens/TokenAtlas";
 
         private Dictionary<string, Object> _assets = new Dictionary<string, Object>();
         private Dictionary<TokenType, Sprite> _tokenSprites;

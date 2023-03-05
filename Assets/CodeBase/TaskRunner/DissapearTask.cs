@@ -3,9 +3,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Cysharp.Threading.Tasks;
+using CodeBase.Board.BoardServices.Score;
 using CodeBase.BoardItems.Cell;
+using CodeBase.Services;
 
 namespace CodeBase.TaskRunner
 {
@@ -14,27 +16,30 @@ namespace CodeBase.TaskRunner
         private const float ScaleDuration = 0.3f;
         private const float FadeDuration = 0.3f;
 
-        private readonly IEnumerable<IGridCell> _items;
+        private float PrependDuration;
+        private readonly Dictionary<IGridCell, ScoreItem> _items;
+        private GameFactory _factory;
+        
 
-        public DissapearTask(IEnumerable<IGridCell> items)
+        public DissapearTask(Dictionary<IGridCell, ScoreItem> items, bool isParralel)
         {
             _items = items;
+            PrependDuration = (isParralel) ? 0 : ScaleDuration * FadeDuration;
         }
 
         public async UniTask Execute(CancellationToken cancellationToken = default)
         {
             Sequence sequence = DOTween.Sequence();
-
-            foreach (IGridCell cell in _items)
+            foreach (KeyValuePair<IGridCell, ScoreItem> pair in _items)
             {
                 _ = sequence
-                    .Join(cell.Item.Transform.DOScale(Vector3.zero, ScaleDuration))
-                    .Join(cell.Item.SpriteRenderer.DOFade(0, FadeDuration));
+                    .Join(pair.Key.Item.Transform.DOScale(Vector3.zero, ScaleDuration))
+                    .Join(pair.Key.Item.SpriteRenderer.DOFade(0, FadeDuration))
+                    .InsertCallback(PrependDuration, async () => await pair.Value.Play())
+                    .PrependInterval(PrependDuration);
             }
 
             await sequence.WithCancellation(cancellationToken);
-
-            //reclaim items
         }
     }
 }

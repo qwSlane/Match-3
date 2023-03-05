@@ -7,8 +7,10 @@ namespace CodeBase.BoardItems.Cell
     public class Cell : MonoBehaviour, IGridCell
     {
         public BoardPosition Position { get; private set; }
+        
+        public Transform Transform => transform;
 
-        public bool IsEmpty => _isEmpty && IsStorable;
+        public bool IsEmpty => _isEmpty;
 
         public bool IsStorable { get; private set; }
 
