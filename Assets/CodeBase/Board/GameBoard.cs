@@ -81,10 +81,9 @@ namespace CodeBase.Board
         {
             int x = Random.Range(0, _columns);
             int y = Random.Range(0, _rows);
-
-            //
-            while (_gridSlots[x, y].IsEmpty && !(_gridSlots[x, y].Item is IModifiable) &&
-                   !(_gridSlots[x, y].Item as IModifiable).HasModifier)
+            
+            while (_gridSlots[x, y].IsEmpty && _gridSlots[x, y].Item.ItemType != ItemType.Token &&
+                   !((IModifiable)_gridSlots[x, y].Item).HasModifier)
             {
                 x = Random.Range(0, _columns);
                 y = Random.Range(0, _rows);

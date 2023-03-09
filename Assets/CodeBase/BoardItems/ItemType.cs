@@ -9,8 +9,8 @@ namespace CodeBase.BoardItems
     {
         Token,
         Ice,
-        ReinforcedStone,
         Stone,
+        ReinforcedStone,
         Rocket
     }
 }
