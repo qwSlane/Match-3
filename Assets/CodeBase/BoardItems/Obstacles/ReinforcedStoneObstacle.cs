@@ -9,11 +9,24 @@ namespace CodeBase.BoardItems.Obstacles
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Sprite _damaged;
         [SerializeField] private int _durability;
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _crush;
 
         public bool IsMovable => true;
         public ItemType ItemType => ItemType.Ice;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public Transform Transform => transform;
+
+        public void FallSound()
+        {
+            _audio.Play();
+        }
+
+        public void Reclaim()
+        {
+            _audio.clip = _crush;
+            _audio.Play();
+        }
 
         public bool Crash()
         {

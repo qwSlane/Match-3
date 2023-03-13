@@ -16,14 +16,14 @@ namespace CodeBase.Board.BoardServices
         private readonly GameBoard _board;
 
         private IEnumerable<IGridCell> _additionalCrushes;
-        
+
         public ItemCrusher(GameBoard board)
         {
             _board = board;
         }
 
         public void Crush(ItemsChain chain)
-        { 
+        {
             _additionalCrushes = null;
             _additionalCrushes = AdditionalCrushes(chain);
         }
@@ -65,7 +65,9 @@ namespace CodeBase.Board.BoardServices
                     if (positions != null)
                         foreach (BoardPosition position in positions)
                         {
-                            yield return _board[position];
+                            if (_board.IsOnBoard(position.PosX, position.PosY) &&
+                                _board[position].IsStorable)
+                                yield return _board[position];
                         }
                 }
             }

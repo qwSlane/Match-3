@@ -1,17 +1,18 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using CodeBase.Board.BoardServices.Mover;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using CodeBase.Board.BoardServices.ItemMover;
 
 namespace CodeBase.TaskRunner
 {
-    public class MoveTask: ITask
+    public class MoveTask : ITask
     {
-        private const float MoveDuration = 0.3f;
-        private const float PrependDuration = 0.09f;
+        private const float MoveDuration = 0.45f;
+        private const float PrependDuration = 0.004f;
 
         private readonly IEnumerable<MoveData> _moveData;
 
@@ -23,13 +24,18 @@ namespace CodeBase.TaskRunner
         public async UniTask Execute(CancellationToken cancellationToken = default)
         {
             Sequence sequence = DOTween.Sequence();
+
             foreach (MoveData moveData in _moveData)
             {
                 _ = sequence
-                    .Join(moveData.Item.Transform.DOPath(moveData.Path, MoveDuration * 1.5f))
+                    .Join(moveData.Item.Transform.DOPath(moveData.Path, MoveDuration))
+                    .InsertCallback(MoveDuration+PrependDuration, 
+                        () => moveData.Item.FallSound())
                     .PrependInterval(PrependDuration);
             }
-            await sequence.SetEase(Ease.Flash);
+            await sequence.WithCancellation(default);
         }
+
+      
     }
 }

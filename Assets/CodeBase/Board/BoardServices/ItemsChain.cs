@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
+using CodeBase.BoardItems.Modifiers;
 using CodeBase.BoardItems.Token;
 
 namespace CodeBase.Board.BoardServices
@@ -88,6 +89,18 @@ namespace CodeBase.Board.BoardServices
                     break;
                 }
             }
+        }
+
+        public bool IsModifier()
+        {
+            if (_chain.Count == 1)
+            {
+                if (_chain.Peek().Item is IModifiable modifiable)
+                {
+                    return modifiable.HasModifier;
+                }
+            }
+            return false;
         }
     }
 }

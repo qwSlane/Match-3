@@ -12,26 +12,30 @@ namespace CodeBase.Editor.Core
 {
     public class ScoreMenu
     {
-        private string _score = "10000";
-        private string _turns = "5";
+        public LevelEditorSettings EditorSettings => _editorSettings;
 
-        private readonly LevelGoals _goals;
+        private readonly LevelEditorSettings _editorSettings;
         private readonly LevelCreator _levelCreator;
         private bool _isScore;
 
         public ScoreMenu(LevelCreator levelCreator)
         {
             _levelCreator = levelCreator;
-            _goals = new LevelGoals();
+            _editorSettings = new LevelEditorSettings();
             _isScore = false;
         }
 
         public void LeftMenu()
         {
+            string turns;
+
             GUILayout.Space(20);
             GUILayout.BeginHorizontal();
             GUILayout.Label("Turns count:");
-            _turns = GUILayout.TextField(_turns);
+            turns = Extentions.ValueOrEmpty(_editorSettings.Turns);
+            turns = GUILayout.TextField(turns,4);
+            _editorSettings.Turns = 
+                (Int32.TryParse(turns, out int t)) ? t : 0;
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Add goal"))
@@ -54,65 +58,69 @@ namespace CodeBase.Editor.Core
             {
                 ScoreGUI();
             }
+
             ObstacleGoals();
             TokenGoals();
         }
 
         private void ScoreGUI()
         {
+            string score = "";
             GUILayout.BeginHorizontal();
             GUILayout.Label("Score");
-            _score = GUILayout.TextField(_score, 13);
-            _goals.AddScoreGoal(Int32.Parse(_score));
+            score = Extentions.ValueOrEmpty(_editorSettings.Score);
+            score = GUILayout.TextField(score, 13);
+            _editorSettings.Score =
+                (Int32.TryParse(score, out int t)) ? t : 0;
+
             if (GUILayout.Button("x"))
             {
                 _isScore = false;
-                _goals.AddScoreGoal(0);
+                _editorSettings.Score = 0;
             }
             GUILayout.EndHorizontal();
         }
 
+        private void TokenGoals()
+        {
+            if (_editorSettings.TokenGoal.Count == 0)
+                return;
+
+            string count;
+            GUILayout.Space(10);
+            _levelCreator.AlignedLabel("Tokens");
+            foreach (KeyValuePair<TokenType, int> token in _editorSettings.TokenGoal.ToDictionary(x => x.Key, x => x.Value))
+            {
+                count = Extentions.ValueOrEmpty(token.Value);
+                GUILayout.BeginHorizontal();
+                GUILayout.Label($"{token.Key}:");
+                count = GUILayout.TextField(count, 5);
+                _editorSettings.TokenGoal[token.Key] = (Int32.TryParse(count, out int t)) ? t : 0;
+                if (GUILayout.Button("x"))
+                {
+                    _isScore = false;
+                    _editorSettings.RemoveTokenGoal(token.Key);
+                }
+                GUILayout.EndHorizontal();
+            }
+        }
+
         private void ObstacleGoals()
         {
-            if (_goals.ObstacleGoal.Count == 0)
+            if (_editorSettings.ObstacleGoal.Count == 0)
                 return;
-            GUILayout.Space(50);
+
+            GUILayout.Space(10);
             _levelCreator.AlignedLabel("Remove obstacles");
             Recount();
-            foreach (KeyValuePair<ItemType, int> obstacle in _goals.ObstacleGoal.ToDictionary(x => x.Key, x => x.Value))
+            foreach (KeyValuePair<ItemType, int> obstacle in _editorSettings.ObstacleGoal.ToDictionary(x => x.Key, x => x.Value))
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label($"{obstacle.Key} : {obstacle.Value}");
                 if (GUILayout.Button("x"))
                 {
                     _isScore = false;
-                    _goals.RemoveObstacleGoal(obstacle.Key);
-                }
-                GUILayout.EndHorizontal();
-            }
-        }
-
-        private void TokenGoals()
-        {
-            if (_goals.TokenGoal.Count == 0)
-                return;
-            
-            string count = " ";
-            GUILayout.Space(50);
-            _levelCreator.AlignedLabel("Tokens");
-            foreach (KeyValuePair<TokenType, int> token in _goals.TokenGoal.ToDictionary(x => x.Key, x => x.Value))
-            {
-                count = (string.IsNullOrEmpty(token.Value.ToString()) || token.Value == 0)
-                    ? count
-                    : token.Value.ToString();
-                GUILayout.BeginHorizontal();
-                GUILayout.Label($"{token.Key}:");
-                count = GUILayout.TextField(count, 5);
-                _goals.TokenGoal[token.Key] = (Int32.TryParse(count, out int t)) ? t : 0;
-                if (GUILayout.Button("x"))
-                {
-                    _isScore = false;
-                    _goals.RemoveTokenGoal(token.Key);
+                    _editorSettings.RemoveObstacleGoal(obstacle.Key);
                 }
                 GUILayout.EndHorizontal();
             }
@@ -120,10 +128,10 @@ namespace CodeBase.Editor.Core
 
         private void Recount()
         {
-            IEnumerable<ItemType> types = _goals.ObstacleGoal.Keys.ToList();
+            IEnumerable<ItemType> types = _editorSettings.ObstacleGoal.Keys.ToList();
             foreach (ItemType key in types)
             {
-                _goals.ObstacleGoal[key] = _levelCreator.GetObstacleCount(key);
+                _editorSettings.ObstacleGoal[key] = _levelCreator.GetObstacleCount(key);
             }
         }
 
@@ -135,13 +143,13 @@ namespace CodeBase.Editor.Core
         private void CollectGoal(object userdata)
         {
             TokenType tokenType = (TokenType)userdata;
-            _goals.TokenGoal[tokenType] = 0;
+            _editorSettings.TokenGoal[tokenType] = 0;
         }
 
         private void RemoveGoal(object userdata)
         {
             ItemType type = (ItemType)(userdata);
-            _goals.ObstacleGoal[type] = _levelCreator.GetObstacleCount(type);
+            _editorSettings.ObstacleGoal[type] = _levelCreator.GetObstacleCount(type);
         }
     }
 }

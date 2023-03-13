@@ -1,9 +1,10 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using CodeBase.BoardItems;
-using CodeBase.Editor.Structures;
+using CodeBase.Structures;
 
 namespace CodeBase.Editor.Core
 {
@@ -52,7 +53,7 @@ namespace CodeBase.Editor.Core
                 _tools.FieldTools[i].Style.normal.background = _tools.FieldTools[i].Icon;
             }
 
-            _current = _tools.FieldTools[0];
+            _current = _tools.FieldTools[1];
             _buttonStyle = EditorStyles.toolbarButton;
             _buttonStyle.fixedHeight = 50;
             _buttonStyle.fixedWidth = 50;
@@ -85,6 +86,16 @@ namespace CodeBase.Editor.Core
             AlignedLabel("Level Properties");
             _scoreMenu.LeftMenu();
 
+            if (GUILayout.Button("Create"))
+            {
+                LevelSerializer s = new LevelSerializer();
+
+                LevelEditorSettings editorSettings = _scoreMenu.EditorSettings;
+                string json = s.SerializeField(_gameField, editorSettings);
+                
+                File.WriteAllText(Application.dataPath+"/t1.json", json);
+                AssetDatabase.Refresh();
+            }
             GUILayout.EndArea();
         }
 

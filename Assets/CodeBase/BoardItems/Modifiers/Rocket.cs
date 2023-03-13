@@ -7,8 +7,8 @@ namespace CodeBase.BoardItems.Modifiers
 {
     public class Rocket : MonoBehaviour, IModifier
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private int _length;
+        private IModifier _modifierImplementation;
 
         public IEnumerable<BoardPosition> Use(Vector3 position)
         {
@@ -24,6 +24,11 @@ namespace CodeBase.BoardItems.Modifiers
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent);
+        }
+
+        public void Destroy()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

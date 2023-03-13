@@ -6,13 +6,14 @@ namespace CodeBase.BoardItems.Cell
 {
     public class Cell : MonoBehaviour, IGridCell
     {
+        [SerializeField] private bool _isStorable;
         public BoardPosition Position { get; private set; }
-        
+
         public Transform Transform => transform;
 
         public bool IsEmpty => _isEmpty;
 
-        public bool IsStorable { get; private set; }
+        public bool IsStorable => _isStorable;
 
         private ICellItem _item;
         private bool _isEmpty;
@@ -27,10 +28,9 @@ namespace CodeBase.BoardItems.Cell
             }
         }
 
-        public void Construct(int rowPos, int columnPos, bool isStorable)
+        public void Construct(BoardPosition position)
         {
-            Position = new BoardPosition(rowPos, columnPos);
-            IsStorable = isStorable;
+            Position = position;
         }
 
         public void Clear()

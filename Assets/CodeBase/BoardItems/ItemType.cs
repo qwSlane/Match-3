@@ -1,16 +1,18 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CodeBase.BoardItems
 {
-    [Serializable]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ItemType
     {
         Token,
         Ice,
         Stone,
         ReinforcedStone,
-        Rocket
+        Rocket,
+        Bomb
     }
 }

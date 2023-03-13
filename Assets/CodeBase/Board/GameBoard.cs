@@ -4,6 +4,11 @@ using UnityEngine;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Modifiers;
+using CodeBase.BoardItems.Obstacles;
+using CodeBase.BoardItems.Token;
+using CodeBase.Services;
+using CodeBase.Structures;
+using CodeBase.UIScripts.Services.StaticData;
 
 namespace CodeBase.Board
 {
@@ -17,11 +22,31 @@ namespace CodeBase.Board
         private int _columns;
         private Cell[,] _gridSlots;
 
-        public void InitBoard(Cell[,] gridSlots)
+        private readonly Transform _parent;
+        private readonly GameFactory _factory;
+        private readonly StaticDataService _dataService;
+
+        public GameBoard(Transform parent, GameFactory factory, StaticDataService dataService)
         {
-            _columns = gridSlots.GetLength(0);
-            _rows = gridSlots.GetLength(1);
-            _gridSlots = gridSlots;
+            _parent = parent;
+            _factory = factory;
+            _dataService = dataService;
+        }
+
+        public void InitCells(LevelConfig config)
+        {
+            _columns = config.FieldColumn;
+            _rows = config.FieldRows;
+            _gridSlots = new Cell[_columns, _rows];
+
+            foreach (var cellData in config.Field)
+            {
+                Cell cell = _factory.CreateCell(cellData.Type, cellData.Position.ToVectorBehind(), _parent);
+                cell.Construct(cellData.Position);
+                _gridSlots[cellData.Position.PosX, cellData.Position.PosY] = cell;
+            }
+
+            InitCellItems(config);
         }
 
         public IGridCell this[BoardPosition position] => _gridSlots[position.PosX, position.PosY];
@@ -77,18 +102,55 @@ namespace CodeBase.Board
             IsOnBoard(col, row) &&
             (_gridSlots[col, row].IsEmpty == false && _gridSlots[col, row].Item.IsMovable == false);
 
+        public Token ConstructToken(Vector3 position)
+        {
+            TokenType tokenType = (TokenType)Random.Range(0, 5);
+            Token token = _factory.CreateToken(position, _parent);
+            Sprite sprite = _dataService.ForToken(tokenType);
+            token.Construct(_factory, sprite, tokenType);
+            return token;
+        }
+
         public BoardPosition ModifiableItem()
         {
             int x = Random.Range(0, _columns);
             int y = Random.Range(0, _rows);
-            
-            while (_gridSlots[x, y].IsEmpty && _gridSlots[x, y].Item.ItemType != ItemType.Token &&
-                   !((IModifiable)_gridSlots[x, y].Item).HasModifier)
+
+            while (!_gridSlots[x, y].IsStorable || _gridSlots[x, y].IsEmpty ||
+                   _gridSlots[x, y].Item.ItemType != ItemType.Token ||
+                   ((IModifiable)_gridSlots[x, y].Item).HasModifier)
             {
                 x = Random.Range(0, _columns);
                 y = Random.Range(0, _rows);
             }
+
             return new BoardPosition(x, y);
+        }
+
+        private void InitCellItems(LevelConfig levelConfig)
+        {
+            foreach (var data in levelConfig.Field)
+            {
+                Vector3 position = data.Position.ToVector();
+                ICellItem item = null;
+
+                switch (data.Type)
+                {
+                    case NodeType.Storable:
+                        item = ConstructToken(position);
+                        break;
+                    case NodeType.Ice:
+                        item = _factory.Create<IceObstacle>(ItemType.Ice, position, _parent);
+                        break;
+                    case NodeType.Stone:
+                        item = _factory.Create<StoneObstacle>(ItemType.Stone, position, _parent);
+                        break;
+                    case NodeType.ReinforcedStone:
+                        item = _factory.Create<ReinforcedStoneObstacle>(ItemType.ReinforcedStone, position, _parent);
+                        break;
+                }
+                _gridSlots[data.Position.PosX, data.Position.PosY].Item = item;
+            }
         }
     }
 }

@@ -5,16 +5,27 @@ using UnityEngine;
 
 namespace CodeBase.BoardItems
 {
+    [Serializable]
     public class BoardPosition
     {
-        public int PosX { get; }
+        public int PosX { get; set; }
 
-        public int PosY { get; }
+        public int PosY { get; set; }
 
         public BoardPosition(int posX, int posY)
         {
             PosX = posX;
             PosY = posY;
+        }
+
+        public BoardPosition()
+        {
+        }
+
+        public BoardPosition(BoardPosition position)
+        {
+            PosX = position.PosX;
+            PosY = position.PosY;
         }
 
         public BoardPosition(Vector2 rayOrigin)
@@ -30,6 +41,7 @@ namespace CodeBase.BoardItems
         }
 
         public Vector3 ToVector() => new(PosX, PosY, 0);
+        public Vector3 ToVectorBehind() => new(PosX, PosY, 1);
 
         public static BoardPosition operator -(BoardPosition pos1, BoardPosition pos2)
         {

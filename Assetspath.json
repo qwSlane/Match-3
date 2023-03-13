@@ -1,0 +1,552 @@
+{
+  "Score": 10000,
+  "Turns": 12,
+  "Field": [
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 4
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 5
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 0,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 4
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 5
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 1,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 4
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 5
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 2,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 4
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 5
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 3,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 4
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 5
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 4,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 4
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 5
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 5,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 0
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 1
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 2
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 3
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 4
+      },
+      "Type": "Stone"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 5
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 6
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 7
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 8
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 9
+      },
+      "Type": "Storable"
+    },
+    {
+      "Position": {
+        "PosX": 6,
+        "PosY": 10
+      },
+      "Type": "Storable"
+    }
+  ],
+  "Obstacles": [
+    {
+      "Type": "Stone",
+      "Count": 6
+    }
+  ],
+  "Tokens": []
+}

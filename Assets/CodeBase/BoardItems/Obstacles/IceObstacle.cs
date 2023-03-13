@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.BoardItems.Obstacles
@@ -8,11 +9,25 @@ namespace CodeBase.BoardItems.Obstacles
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private int _durability;
+        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioClip _crush;
 
         public bool IsMovable => false;
         public ItemType ItemType => ItemType.Ice;
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
         public Transform Transform => transform;
+        public void FallSound()
+        {
+            _audio.Play();
+            
+        }
+        
+        public void Reclaim()
+        {
+            _audio.clip = _crush;
+            _audio.Play();
+            ;
+        }
 
         public bool Crash()
         {

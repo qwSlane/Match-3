@@ -9,5 +9,6 @@ namespace CodeBase.BoardItems.Modifiers
     {
         public IEnumerable<BoardPosition> Use(Vector3 position);
         public void SetParent(Transform parent);
+        void Destroy();
     }
 }
