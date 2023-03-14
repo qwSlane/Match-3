@@ -4,36 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIGoal : MonoBehaviour
+namespace CodeBase.UIScripts.UIObjects
 {
-    [SerializeField] private TextMeshProUGUI _current;
-    [SerializeField] private TextMeshProUGUI _total;
-    [SerializeField] private Image _image;
-
-    public Image Image => _image;
-
-    private int _totalCount;
-    private int _currentCount;
-
-    public void Construct(int total)
+    public class UIGoal : MonoBehaviour
     {
-        _totalCount = total;
-        _currentCount = 0;
+        [SerializeField] private TextMeshProUGUI _current;
+        [SerializeField] private TextMeshProUGUI _total;
+        [SerializeField] private Image _image;
 
-        _total.text = _totalCount.ToString();
-        _current.text = "0";
-    }
+        public Image Image => _image;
 
-    public bool CountUpdate(int value)
-    {
-        _currentCount += value;
-        if (_currentCount >= _totalCount)
+        private int _totalCount;
+        private int _currentCount;
+
+        public void Construct(int total)
         {
-            _currentCount = _totalCount;
-            _current.text = _currentCount.ToString();
-            return true;
+            _totalCount = total;
+            _currentCount = 0;
+
+            _total.text = _totalCount.ToString();
+            _current.text = "0";
         }
-        _current.text = _currentCount.ToString();
-        return false;
+
+        public bool CountUpdate(int value)
+        {
+            _currentCount += value;
+            if (_currentCount >= _totalCount)
+            {
+                _currentCount = _totalCount;
+                _current.text = _currentCount.ToString();
+                return true;
+            }
+            _current.text = _currentCount.ToString();
+            return false;
+        }
     }
 }

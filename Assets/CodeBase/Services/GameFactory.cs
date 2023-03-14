@@ -2,12 +2,12 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using CodeBase.Board.BoardKernel.Score;
 using CodeBase.BoardItems;
 using CodeBase.Services.AssetService;
-using CodeBase.Board.BoardServices.Score;
 using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Token;
-using CodeBase.Structures;
+using CodeBase.EditorStructures;
 
 namespace CodeBase.Services
 {
@@ -32,13 +32,13 @@ namespace CodeBase.Services
         private IAssetProvider _iAssetProvider;
 
         private Stack<ScoreItem> _scoreItems;
-        private Stack<Token> _tokens;
+        private Queue<Token> _tokens;
 
         public GameFactory(IAssetProvider iAssetProvider)
         {
             _iAssetProvider = iAssetProvider;
             _scoreItems = new Stack<ScoreItem>();
-            _tokens = new Stack<Token>();
+            _tokens = new Queue<Token>();
             _cellCount = 0;
         }
 
@@ -74,7 +74,7 @@ namespace CodeBase.Services
                 return token;
             }
 
-            token = _tokens.Pop();
+            token = _tokens.Dequeue();
             token.gameObject.SetActive(true);
             token.Transform.localScale = Vector3.one;
             token.Transform.position = position;
@@ -110,7 +110,8 @@ namespace CodeBase.Services
         {
             item.Transform.position = Vector3.zero;
             item.gameObject.SetActive(false);
-            _tokens.Push(item);
+            if (!_tokens.Contains(item))
+                _tokens.Enqueue(item);
         }
     }
 }

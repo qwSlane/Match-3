@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.BoardItems.Obstacles

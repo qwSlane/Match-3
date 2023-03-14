@@ -4,7 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using CodeBase.BoardItems;
-using CodeBase.Structures;
+using CodeBase.EditorStructures;
 
 namespace CodeBase.Editor.Core
 {
@@ -92,8 +92,8 @@ namespace CodeBase.Editor.Core
 
                 LevelEditorSettings editorSettings = _scoreMenu.EditorSettings;
                 string json = s.SerializeField(_gameField, editorSettings);
-                
-                File.WriteAllText(Application.dataPath+"/t1.json", json);
+
+                File.WriteAllText(Application.dataPath + "/t1.json", json);
                 AssetDatabase.Refresh();
             }
             GUILayout.EndArea();
@@ -123,7 +123,7 @@ namespace CodeBase.Editor.Core
         private void ProcessNodes(Event e)
         {
             int row = (int)((e.mousePosition.x - _offset.x) / 30);
-            int column = (int)((e.mousePosition.y - _offset.y) / 30);
+            int column = FieldHeight - (int)((e.mousePosition.y - _offset.y) / 30);
 
             if (row < 0 || row >= FieldWidth || column < 0 || column >= FieldHeight)
             {
@@ -214,7 +214,7 @@ namespace CodeBase.Editor.Core
             {
                 for (int j = 0; j < FieldHeight; j++)
                 {
-                    _nodePos.Set(i * 30 + _offset.x, j * 30 + _offset.y);
+                    _nodePos.Set(i * 30 + _offset.x, 330 - (30 * j) + _offset.y);
                     _gameField[i, j] = new Node(_nodePos, 30, 30, _current.Style);
                 }
             }

@@ -1,6 +1,6 @@
 {
-  "Score": 0,
-  "Turns": 2,
+  "Score": 3000,
+  "Turns": 15,
   "FieldColumn": 7,
   "FieldRows": 11,
   "Field": [
@@ -9,7 +9,7 @@
         "PosX": 0,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -86,7 +86,7 @@
         "PosX": 1,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -163,7 +163,7 @@
         "PosX": 2,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -198,7 +198,7 @@
         "PosX": 2,
         "PosY": 5
       },
-      "Type": "Storable"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -240,7 +240,7 @@
         "PosX": 3,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -275,7 +275,7 @@
         "PosX": 3,
         "PosY": 5
       },
-      "Type": "Storable"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -317,7 +317,7 @@
         "PosX": 4,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -352,7 +352,7 @@
         "PosX": 4,
         "PosY": 5
       },
-      "Type": "Storable"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -394,7 +394,7 @@
         "PosX": 5,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -471,7 +471,7 @@
         "PosX": 6,
         "PosY": 0
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {

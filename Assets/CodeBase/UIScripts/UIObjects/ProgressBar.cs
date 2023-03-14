@@ -1,44 +1,47 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
 using UnityEngine;
-using TMPro;
 using DG.Tweening;
+using TMPro;
 
-public class ProgressBar : MonoBehaviour
+namespace CodeBase.UIScripts.UIObjects
 {
-    [SerializeField] private TextMeshProUGUI _current;
-    [SerializeField] private TextMeshProUGUI _total;
-    [SerializeField] private RectTransform _image;
-
-    public TextMeshProUGUI Current => _current;
-
-    private int _totalScore;
-    private int _currentScore;
-
-    public void Construct(int total)
+    public class ProgressBar : MonoBehaviour
     {
-        _totalScore = total;
-        _currentScore = 0;
+        [SerializeField] private TextMeshProUGUI _current;
+        [SerializeField] private TextMeshProUGUI _total;
+        [SerializeField] private RectTransform _image;
 
-        _total.text = total.ToString();
-        _current.text = "0";
+        public TextMeshProUGUI Current => _current;
 
-        _image.localScale = new Vector3(0, 1, 1);
-    }
+        private int _totalScore;
+        private int _currentScore;
 
-    public void UpdateScore(int current)
-    {
-        _currentScore += current;
-        _current.text = _currentScore.ToString();
-
-        float width = (float)_currentScore / _totalScore;
-        if (width > 1)
+        public void Construct(int total)
         {
-            width = 1;
-        }
-        _image.transform.DOScaleX(width, 0.3f);
-    }
+            _totalScore = total;
+            _currentScore = 0;
 
-    public bool IsAchived() =>
-        _currentScore >= _totalScore;
+            _total.text = total.ToString();
+            _current.text = "0";
+
+            _image.localScale = new Vector3(0, 1, 1);
+        }
+
+        public void UpdateScore(int current)
+        {
+            _currentScore += current;
+            _current.text = _currentScore.ToString();
+
+            float width = (float)_currentScore / _totalScore;
+            if (width > 1)
+            {
+                width = 1;
+            }
+            _image.transform.DOScaleX(width, 0.3f);
+        }
+
+        public bool IsAchived() =>
+            _currentScore >= _totalScore;
+    }
 }

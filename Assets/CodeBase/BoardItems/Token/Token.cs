@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Modifiers;
 using CodeBase.Services;
-using Object = UnityEngine.Object;
 
 namespace CodeBase.BoardItems.Token
 {

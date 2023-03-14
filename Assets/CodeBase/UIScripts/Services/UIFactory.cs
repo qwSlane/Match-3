@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using Unity.VisualScripting;
-using CodeBase.UIScripts.Services.StaticData;
+using CodeBase.Services.StaticData;
 using CodeBase.UIScripts.UIObjects;
 
 namespace CodeBase.UIScripts.Services

@@ -6,9 +6,9 @@ using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Modifiers;
 using CodeBase.BoardItems.Obstacles;
 using CodeBase.BoardItems.Token;
+using CodeBase.EditorStructures;
 using CodeBase.Services;
-using CodeBase.Structures;
-using CodeBase.UIScripts.Services.StaticData;
+using CodeBase.Services.StaticData;
 
 namespace CodeBase.Board
 {
@@ -74,21 +74,6 @@ namespace CodeBase.Board
             return false;
         }
 
-        private bool CloseTop(int col, int row)
-        {
-            if (IsOnBoard(col, row) && (_gridSlots[col, row].IsEmpty == false
-                                        && _gridSlots[col, row].Item.IsMovable == false))
-            {
-                return true;
-            }
-
-            if (row == _rows - 1)
-            {
-                return false;
-            }
-            return !IsNeighbour(col, row + 1) || CloseTop(col, row + 1);
-        }
-
         public bool DiagonalLeft(int col, int row)
         {
             return IsOnBoard(col - 1, row - 1) && _gridSlots[col - 1, row - 1].IsEmpty &&
@@ -125,6 +110,21 @@ namespace CodeBase.Board
             }
 
             return new BoardPosition(x, y);
+        }
+
+        private bool CloseTop(int col, int row)
+        {
+            if (IsOnBoard(col, row) && (_gridSlots[col, row].IsEmpty == false
+                                        && _gridSlots[col, row].Item.IsMovable == false))
+            {
+                return true;
+            }
+
+            if (row == _rows - 1)
+            {
+                return false;
+            }
+            return !IsNeighbour(col, row + 1) || CloseTop(col, row + 1);
         }
 
         private void InitCellItems(LevelConfig levelConfig)

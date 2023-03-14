@@ -1,11 +1,13 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using CodeBase.Services;
 using UnityEngine;
 using UnityEngine.UI;
-using CodeBase.UIScripts.Services;
-using CodeBase.UIScripts.Services.StaticData;
-using CodeBase.UIScripts.UIObjects;
 using TMPro;
+using CodeBase.Services.StaticData;
+using CodeBase.UIScripts.Services;
+using CodeBase.UIScripts.UIObjects;
+using Zenject;
 
 namespace CodeBase.UIScripts
 {
@@ -17,34 +19,40 @@ namespace CodeBase.UIScripts
         [SerializeField] private TextMeshProUGUI _turns;
         [SerializeField] private Transform _goalsContainer;
 
+        [SerializeField] private InputService _inputService;
+
         public TextMeshProUGUI Turns => _turns;
 
         public Transform Canvas => _canvas;
 
         public Transform GoalsParent => _goalsParent;
-        
+
         public Transform GoalsContainer => _goalsContainer;
 
         private SettingsPopup _settingsPopup = null;
         private UIFactory _factory;
 
-        private void Awake()
+        [Inject]
+        private void Initialize(UIFactory factory)
         {
             _settingsButton.onClick.AddListener(OpenSettingsPopup);
-            _factory = new UIFactory(new StaticDataService());
+            _factory = factory;
         }
 
         private void OpenSettingsPopup()
         {
             if (_settingsPopup == null)
+            {
                 _settingsPopup = _factory.CreateSettingsPopup(_canvas);
-            _settingsPopup.Construct();
+                _settingsPopup.Construct(_inputService.Enable);
+            }
             _settingsPopup.Open();
+            _inputService.Disable();
         }
 
-        public void Restart()
+        public void DisableInput()
         {
-            
+            _inputService.Disable();
         }
     }
 }

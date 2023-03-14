@@ -3,15 +3,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpriteSwapper : MonoBehaviour
+namespace CodeBase.UIScripts
 {
-    [SerializeField] private Image _source;
-
-    [SerializeField] private Sprite _enable;
-    [SerializeField] private Sprite _disable;
-
-    public void Swap(float value)
+    public class SpriteSwapper : MonoBehaviour
     {
-        _source.sprite = (value != 0) ? _enable : _disable;
+        [SerializeField] private Image _source;
+
+        [SerializeField] private Sprite _enable;
+        [SerializeField] private Sprite _disable;
+
+        public void Swap(float value)
+        {
+            _source.sprite = (value != 0) ? _enable : _disable;
+        }
     }
 }

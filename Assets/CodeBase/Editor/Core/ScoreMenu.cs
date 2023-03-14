@@ -32,7 +32,7 @@ namespace CodeBase.Editor.Core
             GUILayout.Space(20);
             GUILayout.BeginHorizontal();
             GUILayout.Label("Turns count:");
-            turns = Extentions.ValueOrEmpty(_editorSettings.Turns);
+            turns = Extensions.ValueOrEmpty(_editorSettings.Turns);
             turns = GUILayout.TextField(turns,4);
             _editorSettings.Turns = 
                 (Int32.TryParse(turns, out int t)) ? t : 0;
@@ -68,7 +68,7 @@ namespace CodeBase.Editor.Core
             string score = "";
             GUILayout.BeginHorizontal();
             GUILayout.Label("Score");
-            score = Extentions.ValueOrEmpty(_editorSettings.Score);
+            score = Extensions.ValueOrEmpty(_editorSettings.Score);
             score = GUILayout.TextField(score, 13);
             _editorSettings.Score =
                 (Int32.TryParse(score, out int t)) ? t : 0;
@@ -91,7 +91,7 @@ namespace CodeBase.Editor.Core
             _levelCreator.AlignedLabel("Tokens");
             foreach (KeyValuePair<TokenType, int> token in _editorSettings.TokenGoal.ToDictionary(x => x.Key, x => x.Value))
             {
-                count = Extentions.ValueOrEmpty(token.Value);
+                count = Extensions.ValueOrEmpty(token.Value);
                 GUILayout.BeginHorizontal();
                 GUILayout.Label($"{token.Key}:");
                 count = GUILayout.TextField(count, 5);

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Token;
 using CodeBase.Editor.Core;
-using CodeBase.Structures;
+using CodeBase.EditorStructures;
 
 namespace CodeBase.Editor
 {

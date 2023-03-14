@@ -3,21 +3,16 @@
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Zenject;
+using Newtonsoft.Json;
 using CodeBase.Board;
-using CodeBase.Board.BoardServices;
-using CodeBase.Board.BoardServices.Score;
+using CodeBase.Board.BoardKernel;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
+using CodeBase.EditorStructures;
 using CodeBase.Goals;
 using CodeBase.Services;
-using CodeBase.Services.AssetService;
-using CodeBase.Structures;
-using CodeBase.UIScripts;
-using CodeBase.UIScripts.Services;
-using CodeBase.UIScripts.Services.StaticData;
-using Newtonsoft.Json;
-using UnityEngine.Serialization;
-using Input = UnityEngine.Input;
 
 namespace CodeBase.Infrastructure
 {
@@ -26,53 +21,47 @@ namespace CodeBase.Infrastructure
         [SerializeField] private Camera _camera;
         [SerializeField] private InputService _inputService;
 
-        [FormerlySerializedAs("_mediator")] [SerializeField]
-        private UIKernel kernel;
-
         private string path = @"Assets/t1.json";
-
-        private GameFactory _gameFactory;
-        private GameBoard _gameBoard;
+        private LevelConfig _config;
 
         private ItemsChain _itemsChain;
         private ItemCrusher _itemCrusher;
         private BoardFiller _boardFiller;
 
-        private ScoreCounter _scoreCounter;
-        private GoalsKernel _goalsKernel;
+        private GameBoard _gameBoard;
+        private GoalsService _goalsService;
 
-        public void Awake()
+        [Inject]
+        public void Initialize(GameBoard board, ItemsChain chain, ItemCrusher crusher,
+            BoardFiller filler, GoalsService goalsService)
         {
-            _camera = Camera.main;
-            IAssetProvider assetProvider = new AssetProvider();
-            _gameFactory = new GameFactory(assetProvider);
+            _goalsService = goalsService;
+            _gameBoard = board;
+            _itemsChain = chain;
+            _boardFiller = filler;
+            _itemCrusher = crusher;
 
             _inputService.Press += Press;
             _inputService.PressUp += PressUp;
 
-            StaticDataService dataService = new StaticDataService();
+            _goalsService.OnFinish += Restart;
+            _itemCrusher.SendData += _goalsService.Receive;
+            
+            _config = JsonConvert.DeserializeObject<LevelConfig>(File.ReadAllText(path));
 
-            LevelConfig config = JsonConvert.DeserializeObject<LevelConfig>(File.ReadAllText(path));
-
-            _gameBoard = new GameBoard(transform, _gameFactory, dataService);
-            _itemsChain = new ItemsChain();
-
-            _itemCrusher = new ItemCrusher(_gameBoard);
-
-            _gameBoard.InitCells(config);
-            _boardFiller = new BoardFiller(_gameFactory, _gameBoard);
-
-            _scoreCounter = new ScoreCounter(_gameFactory, _itemsChain);
-
-            _goalsKernel = new GoalsKernel(config, kernel, dataService, new UIFactory(dataService));
+            StartGame();
         }
 
-        private void Update()
+        private void Restart()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _boardFiller.InitFill();
-            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        private void StartGame()
+        {
+            _goalsService.Init(_config);
+            _gameBoard.InitCells(_config);
+            _boardFiller.InitFill();
         }
 
         private void Press(Vector3 mousePos)
@@ -101,16 +90,16 @@ namespace CodeBase.Infrastructure
 
         private async Task Turn()
         {
-            _itemCrusher.Crush(_itemsChain);
+            _inputService.Disable();
+            await _itemCrusher.Crush();
+            _itemCrusher.SendTurnData();
 
-            await _scoreCounter.Count(_itemCrusher.ToCrush);
             _boardFiller.CreateModifier(_itemsChain.Count);
-            _goalsKernel.Recieve(_scoreCounter.TurnData);
-
-            _itemCrusher.Clean();
             _itemsChain.Clean();
 
             await _boardFiller.Fill();
+            _inputService.Enable();
+
         }
     }
 }

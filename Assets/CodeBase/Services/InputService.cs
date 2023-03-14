@@ -10,8 +10,13 @@ namespace CodeBase.Services
         public event Action<Vector3> Press;
         public event Action PressUp;
 
+        private bool _isActive = true;
+    
         private void Update()
         {
+            if(!_isActive)
+                return;
+            
             if (Input.GetMouseButton(0))
             {
                 Press?.Invoke(Input.mousePosition);
@@ -21,6 +26,16 @@ namespace CodeBase.Services
             {
                 PressUp?.Invoke();
             }
+        }
+
+        public void Disable()
+        {
+            _isActive = false;
+        }
+
+        public void Enable()
+        {
+            _isActive = true;
         }
     }
 }

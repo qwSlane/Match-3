@@ -1,5 +1,6 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
+using System;
 using UnityEngine;
 
 namespace CodeBase.UIScripts.UIObjects
@@ -13,11 +14,14 @@ namespace CodeBase.UIScripts.UIObjects
         [SerializeField] private CloseButton _closeButton;
 
         [SerializeField] private SwapSlider _effects;
+        [SerializeField] private SwapSlider _music;
 
-        public void Construct()
+        public void Construct(Action action)
         {
             _closeButton.Button.onClick.AddListener(Close);
+            _closeButton.Button.onClick.AddListener(action.Invoke);
             _effects.Construct();
+            _music.Construct();
         }
 
         public void Open()
