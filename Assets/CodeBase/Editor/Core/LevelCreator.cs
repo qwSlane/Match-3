@@ -93,7 +93,7 @@ namespace CodeBase.Editor.Core
                 LevelEditorSettings editorSettings = _scoreMenu.EditorSettings;
                 string json = s.SerializeField(_gameField, editorSettings);
 
-                File.WriteAllText(Application.dataPath + "/t1.json", json);
+                File.WriteAllText(Application.dataPath + "/level.json", json);
                 AssetDatabase.Refresh();
             }
             GUILayout.EndArea();

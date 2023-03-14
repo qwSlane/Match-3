@@ -13,9 +13,11 @@ namespace CodeBase.BoardItems.Token
     public class Token : MonoBehaviour, ICellItem, IModifiable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private GameObject _selected;
         [SerializeField] private AudioSource _audio;
 
         [SerializeField] private AudioClip _crush;
+        [SerializeField] private AudioClip _select;
         [SerializeField] private AudioClip _fall;
 
         public bool IsMovable { get; private set; }
@@ -53,7 +55,7 @@ namespace CodeBase.BoardItems.Token
             _audio.Play();
             CleanModifiers();
             await UniTask.Delay(TimeSpan.FromSeconds(_crush.length));
-            Deselect();
+            _selected.SetActive(false);
             _factory.Reclaim(this);
         }
 
@@ -63,9 +65,20 @@ namespace CodeBase.BoardItems.Token
             _modifier = null;
         }
 
-        private void Deselect()
+        public void Deselect(float pitch)
         {
-            SpriteRenderer.color = Color.white;
+            _selected.SetActive(false);
+            _audio.clip = _select;
+            _audio.pitch = pitch / 2;
+            _audio.Play();
+        }
+
+        public void Select(float pitch)
+        {
+            _selected.SetActive(true);
+            _audio.clip = _select;
+            _audio.pitch = pitch / 2;
+            _audio.Play();
         }
 
         public IEnumerable<BoardPosition> UseModifiers()

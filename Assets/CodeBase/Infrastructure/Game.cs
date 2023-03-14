@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure
         [SerializeField] private Camera _camera;
         [SerializeField] private InputService _inputService;
 
-        private string path = @"Assets/t1.json";
+        private string path = @"Assets/level.json";
         private LevelConfig _config;
 
         private ItemsChain _itemsChain;

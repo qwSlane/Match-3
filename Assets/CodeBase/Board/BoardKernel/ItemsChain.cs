@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
 using System.Collections.Generic;
-using UnityEngine;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Modifiers;
@@ -39,7 +38,7 @@ namespace CodeBase.Board.BoardKernel
         {
             foreach (IGridCell cell in _chain)
             {
-                cell.Item.SpriteRenderer.color = Color.white;
+                (cell.Item as Token).Deselect(_chain.Count);
             }
             _chain.Clear();
         }
@@ -63,14 +62,14 @@ namespace CodeBase.Board.BoardKernel
                     _chainType = item.TokenId;
                 }
                 _chain.Push(selected);
-                selected.Item.SpriteRenderer.color = Color.red;
+                (selected.Item as Token).Select(_chain.Count);
                 return;
             }
 
             if (selected.Position.Near(_chain.Peek().Position) && ((Token)selected.Item).TokenId == _chainType)
             {
                 _chain.Push(selected);
-                selected.Item.SpriteRenderer.color = Color.red;
+                (selected.Item as Token)?.Select(_chain.Count);
             }
         }
 
@@ -81,7 +80,7 @@ namespace CodeBase.Board.BoardKernel
                 IGridCell element = _chain.Pop();
                 if (element.Item != selected.Item)
                 {
-                    element.Item.SpriteRenderer.color = Color.white;
+                    (element.Item as Token).Deselect(_chain.Count);
                 }
                 else
                 {
