@@ -90,7 +90,7 @@ namespace CodeBase.Goals
 
         private void InitTokenGoals(LevelConfig config)
         {
-            if (config.Obstacles.Count == 0)
+            if (config.Tokens.Count == 0)
                 return;
 
             foreach (var goalData in config.Tokens)
