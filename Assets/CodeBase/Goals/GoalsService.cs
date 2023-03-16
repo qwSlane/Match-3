@@ -100,7 +100,7 @@ namespace CodeBase.Goals
                 goal.Construct(goalData.Count);
                 _tokenGoals[goalData.Type] = goal;
             }
-            _totalGoals = _tokenGoals.Count;
+            _totalGoals += _tokenGoals.Count;
         }
 
         private void InitObstacleGoals(LevelConfig config)
