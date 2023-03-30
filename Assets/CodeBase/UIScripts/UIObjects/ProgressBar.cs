@@ -33,7 +33,7 @@ namespace CodeBase.UIScripts.UIObjects
             _currentScore += current;
             _current.text = _currentScore.ToString();
 
-            float width = (float)_currentScore / _totalScore;
+            var width = (float)_currentScore / _totalScore;
             if (width > 1)
             {
                 width = 1;

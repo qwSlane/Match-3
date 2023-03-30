@@ -1,23 +1,19 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using System;
 using System.Collections.Generic;
 using CodeBase.BoardItems;
 using CodeBase.BoardItems.Token;
 using CodeBase.EditorStructures;
 using CodeBase.Services.StaticData;
 using CodeBase.UIScripts;
-using CodeBase.UIScripts.Services;
 using CodeBase.UIScripts.UIObjects;
+using CodeBase.UIScripts.Windows;
 
 namespace CodeBase.Goals
 {
     public class GoalsService
     {
-        public Action OnFinish;
-        
-        private readonly UIKernel _kernel;
-        private readonly UIFactory _factory;
+        private readonly HUD _hud;
         private readonly StaticDataService _dataService;
 
         private int _totalGoals;
@@ -28,12 +24,11 @@ namespace CodeBase.Goals
         private Dictionary<TokenType, UIGoal> _tokenGoals;
         private ProgressBar _scoreBar;
 
-        public GoalsService(UIKernel kernel, StaticDataService dataService, UIFactory factory)
+        public GoalsService(HUD hud, StaticDataService dataService)
         {
-            _kernel = kernel;
+            _hud = hud;
             _dataService = dataService;
-            _factory = factory;
-            _kernel.Turns.text = _turns.ToString();
+            _hud.Turns.text = _turns.ToString();
 
             _obstacleGoals = new Dictionary<ItemType, UIGoal>();
             _tokenGoals = new Dictionary<TokenType, UIGoal>();
@@ -66,41 +61,21 @@ namespace CodeBase.Goals
 
             if (_currentGoals == 0 && score)
             {
-                Popup winPopup = _factory.CreateWinPopup(_kernel.Canvas);
-                _kernel.DisableInput();
-                winPopup.Construct(OnFinish);
+                UIManager.Instance.Open<WinWindow>();
             }
             if (_turns == 0)
             {
-                Popup losePopUp = _factory.CreateLosePopUp(_kernel.Canvas);
-                _kernel.DisableInput();
-                losePopUp.Construct(OnFinish);
+                UIManager.Instance.Open<LoseWindow>();
             }
-            _kernel.Turns.text = _turns.ToString();
+            _hud.Turns.text = _turns.ToString();
         }
 
         private void InitScoreGoal(LevelConfig config)
         {
-            _kernel.Turns.text = _turns.ToString();
+            _hud.Turns.text = _turns.ToString();
             if (config.Score == 0)
                 return;
-            _scoreBar = _factory.CreateProgressBar(_kernel.GoalsContainer);
-            _scoreBar.Construct(config.Score);
-        }
-
-        private void InitTokenGoals(LevelConfig config)
-        {
-            if (config.Tokens.Count == 0)
-                return;
-
-            foreach (var goalData in config.Tokens)
-            {
-                UIGoal goal = _factory.CreateGoal(_kernel.GoalsParent);
-                goal.Image.sprite = _dataService.ForToken(goalData.Type);
-                goal.Construct(goalData.Count);
-                _tokenGoals[goalData.Type] = goal;
-            }
-            _totalGoals += _tokenGoals.Count;
+            _scoreBar = _hud.InitProgressbar(config.Score);
         }
 
         private void InitObstacleGoals(LevelConfig config)
@@ -110,12 +85,23 @@ namespace CodeBase.Goals
 
             foreach (var goalData in config.Obstacles)
             {
-                UIGoal goal = _factory.CreateGoal(_kernel.GoalsParent);
-                goal.Image.sprite = _dataService.ForItem(goalData.Type);
-                goal.Construct(goalData.Count);
+                var goal = _hud.CreateGoal(goalData.Count, _dataService.ForItem(goalData.Type));
                 _obstacleGoals[goalData.Type] = goal;
             }
             _totalGoals = _obstacleGoals.Count;
+        }
+
+        private void InitTokenGoals(LevelConfig config)
+        {
+            if (config.Tokens.Count == 0)
+                return;
+
+            foreach (var goalData in config.Tokens)
+            {
+                var goal = _hud.CreateGoal(goalData.Count, _dataService.ForToken(goalData.Type));
+                _tokenGoals[goalData.Type] = goal;
+            }
+            _totalGoals += _tokenGoals.Count;
         }
 
         private void UpdateObstacleGoals(Dictionary<ItemType, int> obstacles)
@@ -125,7 +111,7 @@ namespace CodeBase.Goals
 
             foreach (var goal in _obstacleGoals)
             {
-                int count = (obstacles.TryGetValue(goal.Key, out int t)) ? t : 0;
+                var count = (obstacles.TryGetValue(goal.Key, out int t)) ? t : 0;
 
                 if (_obstacleGoals[goal.Key].CountUpdate(count))
                 {
@@ -141,7 +127,7 @@ namespace CodeBase.Goals
 
             foreach (var goal in _tokenGoals)
             {
-                int count = (dataTokens.TryGetValue(goal.Key, out int t)) ? t : 0;
+                var count = (dataTokens.TryGetValue(goal.Key, out var t)) ? t : 0;
 
                 if (_tokenGoals[goal.Key].CountUpdate(count))
                 {

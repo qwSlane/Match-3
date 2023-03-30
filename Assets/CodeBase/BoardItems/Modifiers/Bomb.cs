@@ -12,10 +12,10 @@ namespace CodeBase.BoardItems.Modifiers
 
         public IEnumerable<BoardPosition> Use(Vector3 position)
         {
-            List<BoardPosition> marked = new List<BoardPosition>();
-            for (int i = -_length; i <= _length; i++)
+            var marked = new List<BoardPosition>();
+            for (var i = -_length; i <= _length; i++)
             {
-                for (int j = -_length; j <= _length; j++)
+                for (var j = -_length; j <= _length; j++)
                 {
                     marked.Add(new BoardPosition((int)position.x + i, (int)position.y + j));
                 }

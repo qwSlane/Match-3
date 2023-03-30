@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.05882353}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -563,9 +563,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5075683424476623693}
   - component: {fileID: 1926596926108205289}
-  - component: {fileID: 978644942794665004}
+  - component: {fileID: 7683251683240083109}
   m_Layer: 5
-  m_Name: SettingsPopup
+  m_Name: SettingsWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,7 +610,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &978644942794665004
+--- !u!114 &7683251683240083109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animation: {fileID: 1926596926108205289}
   _closeButton: {fileID: 1088561780711911891}
-  _effects: {fileID: 4540881370767652761}
+  _soundEffects: {fileID: 4540881370767652761}
   _music: {fileID: 2828987823542816040}
 --- !u!1 &5075683424803105170
 GameObject:

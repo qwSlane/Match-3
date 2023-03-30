@@ -58,7 +58,7 @@ namespace CodeBase.Board.BoardKernel
             await _mover.FallDown();
 
             List<MoveData> moveData = new List<MoveData>();
-            foreach (IGridCell cell in _spawnerCells)
+            foreach (var cell in _spawnerCells)
             {
                 while (cell.IsEmpty)
                 {
@@ -84,14 +84,14 @@ namespace CodeBase.Board.BoardKernel
 
         private void SetupModifiers()
         {
-            foreach (KeyValuePair<ItemType, int> modifier in _modifiers)
+            foreach (var modifier in _modifiers)
             {
-                for (int i = 0; i < modifier.Value; i++)
+                for (var i = 0; i < modifier.Value; i++)
                 {
-                    BoardPosition position = _board.ModifiableItem();
-                    Token item = (Token)_board[position].Item;
+                    var position = _board.ModifiableItem();
+                    var item = (Token)_board[position].Item;
 
-                    Vector3 location = new Vector3(item.Transform.position.x, item.Transform.position.y, -1);
+                    var location = new Vector3(item.Transform.position.x, item.Transform.position.y, -1);
 
                     switch (modifier.Key)
                     {
@@ -125,9 +125,9 @@ namespace CodeBase.Board.BoardKernel
 
         private void InitSpawnerCells()
         {
-            for (int i = 0; i < _board.Columns; i++)
+            for (var i = 0; i < _board.Columns; i++)
             {
-                for (int j = 0; j < _board.Rows; j++)
+                for (var j = 0; j < _board.Rows; j++)
                 {
                     if (j == _board.Rows - 1)
                     {

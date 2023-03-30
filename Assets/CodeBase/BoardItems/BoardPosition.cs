@@ -36,7 +36,7 @@ namespace CodeBase.BoardItems
 
         public bool Near(BoardPosition position)
         {
-            int max = Math.Max(Math.Abs(PosX - position.PosX), Math.Abs(PosY - position.PosY));
+            var max = Math.Max(Math.Abs(PosX - position.PosX), Math.Abs(PosY - position.PosY));
             return max <= 1;
         }
 

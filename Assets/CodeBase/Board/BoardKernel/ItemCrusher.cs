@@ -9,7 +9,6 @@ using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
 using CodeBase.BoardItems.Modifiers;
 using CodeBase.BoardItems.Obstacles;
-using CodeBase.BoardTasks;
 using CodeBase.Goals;
 
 namespace CodeBase.Board.BoardKernel
@@ -36,9 +35,9 @@ namespace CodeBase.Board.BoardKernel
             _additionalCrushes = null;
             _additionalCrushes = AdditionalCrushes().ToList();
 
-            IEnumerable<ITask> disappearTasks = _scoreSpawner.Spawn(_additionalCrushes);
+            var disappearTasks = _scoreSpawner.Spawn(_additionalCrushes);
 
-            foreach (ITask task in disappearTasks)
+            foreach (var task in disappearTasks)
             {
                 await task.Execute();
             }
@@ -52,7 +51,7 @@ namespace CodeBase.Board.BoardKernel
 
         private void Clean()
         {
-            foreach (IGridCell cell in _additionalCrushes)
+            foreach (var cell in _additionalCrushes)
             {
                 cell.Clear();
             }
@@ -61,13 +60,13 @@ namespace CodeBase.Board.BoardKernel
 
         private IEnumerable<IGridCell> AdditionalCrushes()
         {
-            IEnumerable<IGridCell> addcrushes = CrushObstacles(_chain.Chain);
+            var addcrushes = CrushObstacles(_chain.Chain);
             return addcrushes.Concat(CrushByModifier(_chain.Chain));
         }
 
         private IEnumerable<IGridCell> CrushObstacles(IEnumerable<IGridCell> chain)
         {
-            List<IGridCell> obstacles = new List<IGridCell>();
+            var obstacles = new List<IGridCell>();
             foreach (IGridCell cell in chain)
             {
                 BoardPosition position = cell.Position;
@@ -79,11 +78,11 @@ namespace CodeBase.Board.BoardKernel
 
         private IEnumerable<IGridCell> CrushByModifier(IEnumerable<IGridCell> chain)
         {
-            foreach (IGridCell cell in chain)
+            foreach (var cell in chain)
             {
                 if (cell.Item is IModifiable item)
                 {
-                    IEnumerable<BoardPosition> positions = item.UseModifiers();
+                    var positions = item.UseModifiers();
                     if (positions != null)
                         foreach (BoardPosition position in positions)
                         {
@@ -103,7 +102,7 @@ namespace CodeBase.Board.BoardKernel
             {
                 if (_board[position.PosX + direction, position.PosY].Item is IObstacle)
                 {
-                    IObstacle obs = (IObstacle)_board[position.PosX + direction, position.PosY].Item;
+                    var obs = (IObstacle)_board[position.PosX + direction, position.PosY].Item;
                     if (obs.Crash())
                     {
                         gridCells.Add(_board[position.PosX + direction, position.PosY]);
@@ -117,7 +116,7 @@ namespace CodeBase.Board.BoardKernel
             {
                 if (_board[position.PosX, position.PosY + direction].Item is IObstacle)
                 {
-                    IObstacle obs = (IObstacle)_board[position.PosX, position.PosY + direction].Item;
+                    var obs = (IObstacle)_board[position.PosX, position.PosY + direction].Item;
                     if (obs.Crash())
                     {
                         gridCells.Add(_board[position.PosX, position.PosY + direction]);

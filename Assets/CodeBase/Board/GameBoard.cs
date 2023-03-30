@@ -41,7 +41,7 @@ namespace CodeBase.Board
 
             foreach (var cellData in config.Field)
             {
-                Cell cell = _factory.CreateCell(cellData.Type, cellData.Position.ToVectorBehind(), _parent);
+                var cell = _factory.CreateCell(cellData.Type, cellData.Position.ToVectorBehind(), _parent);
                 cell.Construct(cellData.Position);
                 _gridSlots[cellData.Position.PosX, cellData.Position.PosY] = cell;
             }
@@ -89,17 +89,17 @@ namespace CodeBase.Board
 
         public Token ConstructToken(Vector3 position)
         {
-            TokenType tokenType = (TokenType)Random.Range(0, 5);
-            Token token = _factory.CreateToken(position, _parent);
-            Sprite sprite = _dataService.ForToken(tokenType);
+            var tokenType = (TokenType)Random.Range(0, 5);
+            var token = _factory.CreateToken(position, _parent);
+            var sprite = _dataService.ForToken(tokenType);
             token.Construct(_factory, sprite, tokenType);
             return token;
         }
 
         public BoardPosition ModifiableItem()
         {
-            int x = Random.Range(0, _columns);
-            int y = Random.Range(0, _rows);
+            var x = Random.Range(0, _columns);
+            var y = Random.Range(0, _rows);
 
             while (!_gridSlots[x, y].IsStorable || _gridSlots[x, y].IsEmpty ||
                    _gridSlots[x, y].Item.ItemType != ItemType.Token ||
@@ -131,7 +131,7 @@ namespace CodeBase.Board
         {
             foreach (var data in levelConfig.Field)
             {
-                Vector3 position = data.Position.ToVector();
+                var position = data.Position.ToVector();
                 ICellItem item = null;
 
                 switch (data.Type)

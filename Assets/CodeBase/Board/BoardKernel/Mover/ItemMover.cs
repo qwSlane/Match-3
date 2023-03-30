@@ -25,7 +25,7 @@ namespace CodeBase.Board.BoardKernel.Mover
 
         public void InitializeItemsPaths()
         {
-            foreach (Cell cell in _gameBoard.Cells)
+            foreach (var cell in _gameBoard.Cells)
             {
                 _itemPath[cell] = new List<Vector3>();
             }
@@ -34,9 +34,9 @@ namespace CodeBase.Board.BoardKernel.Mover
         public async UniTask FallDown()
         {
             List<MoveData> moveData = new List<MoveData>();
-            for (int j = 0; j < _gameBoard.Rows; j++)
+            for (var j = 0; j < _gameBoard.Rows; j++)
             {
-                for (int i = 0; i < _gameBoard.Columns; i++)
+                for (var i = 0; i < _gameBoard.Columns; i++)
                 {
                     Cell cell = _gameBoard[i, j];
                     if (cell.IsStorable == false)
@@ -70,20 +70,20 @@ namespace CodeBase.Board.BoardKernel.Mover
         public async UniTask SlideDown()
         {
             Sequence sequence = DOTween.Sequence();
-            for (int j = 0; j < _gameBoard.Rows; j++)
+            for (var j = 0; j < _gameBoard.Rows; j++)
             {
-                for (int i = 0; i < _gameBoard.Columns; i++)
+                for (var i = 0; i < _gameBoard.Columns; i++)
                 {
-                    Cell cell = _gameBoard[i, j];
+                    var cell = _gameBoard[i, j];
 
                     if (cell.IsStorable == false)
                         continue;
 
                     if (cell.IsEmpty == false && cell.Item.IsMovable)
                     {
-                        ICellItem item = cell.Item;
+                        var item = cell.Item;
                         cell.Clear();
-                        BoardPosition position = MoveDown(i, j);
+                        var position = MoveDown(i, j);
                         _gameBoard[position.PosX, position.PosY].Item = item;
 
                         _ = sequence
@@ -102,7 +102,7 @@ namespace CodeBase.Board.BoardKernel.Mover
         {
             if (_gameBoard.CanMoveDown(col, row))
             {
-                BoardPosition destination = MoveDown(col, row);
+                var destination = MoveDown(col, row);
                 path.Add(destination.ToVector());
                 CreatePath(destination.PosX, destination.PosY, path);
                 return;

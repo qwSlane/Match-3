@@ -53,7 +53,7 @@ namespace CodeBase.Board.BoardKernel.Score
         private Dictionary<IGridCell, ScoreItem> ScoreForAdditional(IEnumerable<IGridCell> additional)
         {
             Dictionary<IGridCell, ScoreItem> toCrush = new Dictionary<IGridCell, ScoreItem>();
-            foreach (IGridCell cell in additional)
+            foreach (var cell in additional)
             {
                 ScoreItem item = _factory.CreateScore(cell.Transform);
                 item.Text.SetText(Score.ToString());
@@ -85,10 +85,10 @@ namespace CodeBase.Board.BoardKernel.Score
 
         private Dictionary<IGridCell, ScoreItem> ScoreForChain()
         {
-            Dictionary<IGridCell, ScoreItem> toCrush = new Dictionary<IGridCell, ScoreItem>();
+            var toCrush = new Dictionary<IGridCell, ScoreItem>();
             int i = 0;
 
-            foreach (IGridCell cell in _chain.Chain)
+            foreach (var cell in _chain.Chain)
             {
                 ScoreItem item = _factory.CreateScore(cell.Transform);
                 int score = 50 + (i % 3) * 20;

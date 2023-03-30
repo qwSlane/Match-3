@@ -17,6 +17,9 @@ namespace CodeBase.Infrastructure.Foundation
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(SceneLoadState)] = new SceneLoadState(this),
+                [typeof(GameState)] = new GameState(),
+                [typeof(RestartLevelState)] = new RestartLevelState(this),
+                
             };
         }
 

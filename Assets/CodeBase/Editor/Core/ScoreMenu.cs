@@ -65,7 +65,7 @@ namespace CodeBase.Editor.Core
 
         private void ScoreGUI()
         {
-            string score = "";
+            var score = "";
             GUILayout.BeginHorizontal();
             GUILayout.Label("Score");
             score = Extensions.ValueOrEmpty(_editorSettings.Score);
@@ -89,7 +89,7 @@ namespace CodeBase.Editor.Core
             string count;
             GUILayout.Space(10);
             _levelCreator.AlignedLabel("Tokens");
-            foreach (KeyValuePair<TokenType, int> token in _editorSettings.TokenGoal.ToDictionary(x => x.Key, x => x.Value))
+            foreach (var token in _editorSettings.TokenGoal.ToDictionary(x => x.Key, x => x.Value))
             {
                 count = Extensions.ValueOrEmpty(token.Value);
                 GUILayout.BeginHorizontal();
@@ -113,7 +113,7 @@ namespace CodeBase.Editor.Core
             GUILayout.Space(10);
             _levelCreator.AlignedLabel("Remove obstacles");
             Recount();
-            foreach (KeyValuePair<ItemType, int> obstacle in _editorSettings.ObstacleGoal.ToDictionary(x => x.Key, x => x.Value))
+            foreach (var obstacle in _editorSettings.ObstacleGoal.ToDictionary(x => x.Key, x => x.Value))
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label($"{obstacle.Key} : {obstacle.Value}");
@@ -128,8 +128,8 @@ namespace CodeBase.Editor.Core
 
         private void Recount()
         {
-            IEnumerable<ItemType> types = _editorSettings.ObstacleGoal.Keys.ToList();
-            foreach (ItemType key in types)
+            var types = _editorSettings.ObstacleGoal.Keys.ToList();
+            foreach (var key in types)
             {
                 _editorSettings.ObstacleGoal[key] = _levelCreator.GetObstacleCount(key);
             }
@@ -142,13 +142,13 @@ namespace CodeBase.Editor.Core
 
         private void CollectGoal(object userdata)
         {
-            TokenType tokenType = (TokenType)userdata;
+            var tokenType = (TokenType)userdata;
             _editorSettings.TokenGoal[tokenType] = 0;
         }
 
         private void RemoveGoal(object userdata)
         {
-            ItemType type = (ItemType)(userdata);
+            var type = (ItemType)(userdata);
             _editorSettings.ObstacleGoal[type] = _levelCreator.GetObstacleCount(type);
         }
     }

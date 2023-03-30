@@ -47,7 +47,7 @@ namespace CodeBase.Services
             string path = (type == NodeType.Empty) ? CellEmpty :
                 ((_cellCount & 1) == 0) ? CellA : CellB;
 
-            Cell obj = Object.Instantiate(
+            var obj = Object.Instantiate(
                 _iAssetProvider.Asset<Cell>(path), position, Quaternion.identity, parent
             );
 
@@ -57,7 +57,7 @@ namespace CodeBase.Services
 
         public T Create<T>(ItemType itemType, Vector3 position, Transform parent) where T : Object
         {
-            T obj = Object.Instantiate(
+            var obj = Object.Instantiate(
                 _iAssetProvider.Asset<T>(_paths[itemType]), position, Quaternion.identity, parent
             );
             return obj;

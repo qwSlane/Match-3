@@ -1,7 +1,8 @@
-﻿using CodeBase.Infrastructure.Foundation.States.Intefaces;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
+
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
+using CodeBase.Infrastructure.Foundation.States.Intefaces;
 
 namespace CodeBase.Infrastructure.Foundation.States
 {

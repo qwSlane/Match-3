@@ -11,12 +11,12 @@ namespace CodeBase.Services
         public event Action PressUp;
 
         private bool _isActive = true;
-    
+
         private void Update()
         {
-            if(!_isActive)
+            if (!_isActive)
                 return;
-            
+
             if (Input.GetMouseButton(0))
             {
                 Press?.Invoke(Input.mousePosition);

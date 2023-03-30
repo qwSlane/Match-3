@@ -1,6 +1,6 @@
 {
-  "Score": 7800,
-  "Turns": 22,
+  "Score": 8000,
+  "Turns": 23,
   "FieldColumn": 7,
   "FieldRows": 11,
   "Field": [
@@ -9,63 +9,63 @@
         "PosX": 0,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 1
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 2
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 3
       },
-      "Type": "Ice"
+      "Type": "Stone"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 4
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 5
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 6
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 7
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 0,
         "PosY": 8
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
@@ -86,7 +86,7 @@
         "PosX": 1,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -107,7 +107,7 @@
         "PosX": 1,
         "PosY": 3
       },
-      "Type": "Storable"
+      "Type": "Stone"
     },
     {
       "Position": {
@@ -121,28 +121,28 @@
         "PosX": 1,
         "PosY": 5
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 1,
         "PosY": 6
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 1,
         "PosY": 7
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 1,
         "PosY": 8
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -163,7 +163,7 @@
         "PosX": 2,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -177,21 +177,21 @@
         "PosX": 2,
         "PosY": 2
       },
-      "Type": "Empty"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 2,
         "PosY": 3
       },
-      "Type": "Empty"
+      "Type": "Stone"
     },
     {
       "Position": {
         "PosX": 2,
         "PosY": 4
       },
-      "Type": "Empty"
+      "Type": "Storable"
     },
     {
       "Position": {
@@ -240,7 +240,7 @@
         "PosX": 3,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -261,7 +261,7 @@
         "PosX": 3,
         "PosY": 3
       },
-      "Type": "Storable"
+      "Type": "Stone"
     },
     {
       "Position": {
@@ -317,7 +317,7 @@
         "PosX": 4,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -331,21 +331,21 @@
         "PosX": 4,
         "PosY": 2
       },
-      "Type": "Empty"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 4,
         "PosY": 3
       },
-      "Type": "Empty"
+      "Type": "Stone"
     },
     {
       "Position": {
         "PosX": 4,
         "PosY": 4
       },
-      "Type": "Empty"
+      "Type": "Storable"
     },
     {
       "Position": {
@@ -394,7 +394,7 @@
         "PosX": 5,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Empty"
     },
     {
       "Position": {
@@ -429,28 +429,28 @@
         "PosX": 5,
         "PosY": 5
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 5,
         "PosY": 6
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 5,
         "PosY": 7
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
         "PosX": 5,
         "PosY": 8
       },
-      "Type": "Storable"
+      "Type": "Ice"
     },
     {
       "Position": {
@@ -471,63 +471,63 @@
         "PosX": 6,
         "PosY": 0
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 1
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 2
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 3
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 4
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 5
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 6
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 7
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
         "PosX": 6,
         "PosY": 8
       },
-      "Type": "Ice"
+      "Type": "Storable"
     },
     {
       "Position": {
@@ -546,17 +546,17 @@
   ],
   "Obstacles": [
     {
+      "Type": "Stone",
+      "Count": 5
+    },
+    {
       "Type": "Ice",
-      "Count": 23
+      "Count": 8
     }
   ],
   "Tokens": [
     {
       "Type": "Green",
-      "Count": 12
-    },
-    {
-      "Type": "Pink",
       "Count": 8
     }
   ]

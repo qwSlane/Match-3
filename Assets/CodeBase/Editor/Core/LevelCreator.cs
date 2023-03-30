@@ -47,7 +47,7 @@ namespace CodeBase.Editor.Core
         {
             _tools = Resources.Load<LevelTools>(LevelTools);
 
-            for (int i = 0; i < _tools.FieldTools.Length; i++)
+            for (var i = 0; i < _tools.FieldTools.Length; i++)
             {
                 _tools.FieldTools[i].Style = new GUIStyle();
                 _tools.FieldTools[i].Style.normal.background = _tools.FieldTools[i].Icon;
@@ -80,7 +80,7 @@ namespace CodeBase.Editor.Core
 
         private void DrawLeftMenuBar()
         {
-            Rect rect = new Rect(0, 0, 170, position.height);
+            var rect = new Rect(0, 0, 170, position.height);
             GUIStyle box = "Box";
             GUILayout.BeginArea(rect, box);
             AlignedLabel("Level Properties");
@@ -101,7 +101,7 @@ namespace CodeBase.Editor.Core
 
         private void DrawRightMenuBar()
         {
-            Rect rect = new Rect(position.width - 70, 0, 70, position.height);
+            var rect = new Rect(position.width - 70, 0, 70, position.height);
             GUIStyle box = "Box";
             GUILayout.BeginArea(rect, box);
 
@@ -122,8 +122,8 @@ namespace CodeBase.Editor.Core
 
         private void ProcessNodes(Event e)
         {
-            int row = (int)((e.mousePosition.x - _offset.x) / 30);
-            int column = FieldHeight - (int)((e.mousePosition.y - _offset.y) / 30);
+            var row = (int)((e.mousePosition.x - _offset.x) / 30);
+            var column = FieldHeight - (int)((e.mousePosition.y - _offset.y) / 30);
 
             if (row < 0 || row >= FieldWidth || column < 0 || column >= FieldHeight)
             {
@@ -161,9 +161,9 @@ namespace CodeBase.Editor.Core
         private void OnMouseDrag(Vector2 delta)
         {
             _drag = delta;
-            for (int i = 0; i < FieldWidth; i++)
+            for (var i = 0; i < FieldWidth; i++)
             {
-                for (int j = 0; j < FieldHeight; j++)
+                for (var j = 0; j < FieldHeight; j++)
                 {
                     _gameField[i, j].Drag(delta);
                 }
@@ -173,9 +173,9 @@ namespace CodeBase.Editor.Core
 
         private void DrawNodes()
         {
-            for (int i = 0; i < FieldWidth; i++)
+            for (var i = 0; i < FieldWidth; i++)
             {
-                for (int j = 0; j < FieldHeight; j++)
+                for (var j = 0; j < FieldHeight; j++)
                 {
                     _gameField[i, j].Draw();
                 }
@@ -184,19 +184,19 @@ namespace CodeBase.Editor.Core
 
         private void DrawGrid()
         {
-            int width = Mathf.CeilToInt(position.width / 30);
-            int height = Mathf.CeilToInt(position.height / 30);
+            var width = Mathf.CeilToInt(position.width / 30);
+            var height = Mathf.CeilToInt(position.height / 30);
 
             Handles.BeginGUI();
             Handles.color = new Color(.5f, .5f, .5f, .2f);
             _offset += _drag;
             Vector3 offset = new Vector3(_offset.x % 30, _offset.y % 30, 0);
-            for (int i = 0; i < width; i++)
+            for (var i = 0; i < width; i++)
             {
                 Handles.DrawLine(new Vector3(30 * i, -30, 0) + offset,
                     new Vector3(30 * i, position.height, 0) + offset);
             }
-            for (int i = 0; i < height; i++)
+            for (var i = 0; i < height; i++)
             {
                 Handles.DrawLine(new Vector3(-30, 30 * i, 0) + offset,
                     new Vector3(position.width, 30 * i, 0) + offset);
@@ -210,9 +210,9 @@ namespace CodeBase.Editor.Core
         {
             _gameField = new Node[FieldWidth, FieldHeight];
 
-            for (int i = 0; i < FieldWidth; i++)
+            for (var i = 0; i < FieldWidth; i++)
             {
-                for (int j = 0; j < FieldHeight; j++)
+                for (var j = 0; j < FieldHeight; j++)
                 {
                     _nodePos.Set(i * 30 + _offset.x, 330 - (30 * j) + _offset.y);
                     _gameField[i, j] = new Node(_nodePos, 30, 30, _current.Style);
@@ -232,7 +232,7 @@ namespace CodeBase.Editor.Core
         public int GetObstacleCount(ItemType type)
         {
             NodeType nodeType = NodeType.Empty;
-            int count = 0;
+            var count = 0;
 
             switch (type)
             {

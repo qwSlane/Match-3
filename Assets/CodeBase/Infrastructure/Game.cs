@@ -3,7 +3,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 using Newtonsoft.Json;
 using CodeBase.Board;
@@ -18,10 +17,10 @@ namespace CodeBase.Infrastructure
 {
     public class Game : MonoBehaviour
     {
+        private const string LevelPath = "/level.json";
         [SerializeField] private Camera _camera;
         [SerializeField] private InputService _inputService;
 
-        private string path = @"Assets/level.json";
         private LevelConfig _config;
 
         private ItemsChain _itemsChain;
@@ -41,20 +40,25 @@ namespace CodeBase.Infrastructure
             _boardFiller = filler;
             _itemCrusher = crusher;
 
+            var path = Path.Combine(Application.streamingAssetsPath + LevelPath);
+
+#if UNITY_ANDROID
+            WWW reader = new WWW(path);
+            while (!reader.isDone)
+            { }
+            var data = reader.text;
+#elif UNITY_EDITOR
+            StreamReader reader = new StreamReader(path);
+            var data = reader.ReadToEnd();
+            reader.Close();
+#endif
+            _config = JsonConvert.DeserializeObject<LevelConfig>(data);
             _inputService.Press += Press;
             _inputService.PressUp += PressUp;
 
-            _goalsService.OnFinish += Restart;
             _itemCrusher.SendData += _goalsService.Receive;
-            
-            _config = JsonConvert.DeserializeObject<LevelConfig>(File.ReadAllText(path));
 
             StartGame();
-        }
-
-        private void Restart()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void StartGame()
@@ -99,7 +103,6 @@ namespace CodeBase.Infrastructure
 
             await _boardFiller.Fill();
             _inputService.Enable();
-
         }
     }
 }

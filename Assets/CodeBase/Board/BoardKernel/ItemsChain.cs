@@ -36,7 +36,7 @@ namespace CodeBase.Board.BoardKernel
 
         public void Deselect()
         {
-            foreach (IGridCell cell in _chain)
+            foreach (var cell in _chain)
             {
                 (cell.Item as Token).Deselect(_chain.Count);
             }
@@ -45,7 +45,7 @@ namespace CodeBase.Board.BoardKernel
 
         public void Clean()
         {
-            foreach (IGridCell cell in _chain)
+            foreach (var cell in _chain)
             {
                 cell.Clear();
             }
@@ -58,7 +58,7 @@ namespace CodeBase.Board.BoardKernel
             {
                 if (selected.Item.ItemType == ItemType.Token)
                 {
-                    Token item = selected.Item as Token;
+                    var item = selected.Item as Token;
                     _chainType = item.TokenId;
                 }
                 _chain.Push(selected);

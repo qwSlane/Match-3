@@ -22,19 +22,17 @@ namespace CodeBase.BoardTasks
 
         public async UniTask Execute(CancellationToken cancellationToken = default)
         {
-            Sequence sequence = DOTween.Sequence();
+            var sequence = DOTween.Sequence();
 
-            foreach (MoveData moveData in _moveData)
+            foreach (var moveData in _moveData)
             {
                 _ = sequence
                     .Join(moveData.Item.Transform.DOPath(moveData.Path, MoveDuration))
-                    .InsertCallback(MoveDuration, 
+                    .InsertCallback(MoveDuration,
                         () => moveData.Item.FallSound())
                     .PrependInterval(PrependDuration);
             }
             await sequence.WithCancellation(default);
         }
-
-      
     }
 }

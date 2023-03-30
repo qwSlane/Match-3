@@ -2,9 +2,9 @@
 
 using System;
 using UnityEngine;
-using CodeBase.Services;
 using TMPro;
 using Cysharp.Threading.Tasks;
+using CodeBase.Services;
 
 namespace CodeBase.Board.BoardKernel.Score
 {

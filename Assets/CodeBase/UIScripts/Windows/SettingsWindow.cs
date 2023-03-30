@@ -1,35 +1,35 @@
 // Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using System;
+using CodeBase.UIScripts.UIObjects;
 using UnityEngine;
 
-namespace CodeBase.UIScripts.UIObjects
+namespace CodeBase.UIScripts.Windows
 {
-    public class SettingsPopup : MonoBehaviour
+    public class SettingsWindow : Window
     {
         private const string OpenAnimation = "Open";
         private const string CloseAnimation = "Close";
-    
+
         [SerializeField] private Animation _animation;
         [SerializeField] private CloseButton _closeButton;
 
-        [SerializeField] private SwapSlider _effects;
+        [SerializeField] private SwapSlider _soundEffects;
         [SerializeField] private SwapSlider _music;
 
-        public void Construct(Action action)
+        private void Initialize()
         {
             _closeButton.Button.onClick.AddListener(Close);
-            _closeButton.Button.onClick.AddListener(action.Invoke);
-            _effects.Construct();
+            _soundEffects.Construct();
             _music.Construct();
         }
 
-        public void Open()
+        protected override void SelfOpen()
         {
+            Initialize();
             _animation.Play(OpenAnimation);
         }
-    
-        public void Close()
+
+        protected override void SelfClose()
         {
             _closeButton.Close();
             _animation.Play(CloseAnimation);
