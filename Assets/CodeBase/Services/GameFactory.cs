@@ -21,7 +21,7 @@ namespace CodeBase.Services
 
         private readonly Dictionary<ItemType, string> _paths = new Dictionary<ItemType, string>()
         {
-            [ItemType.Token] = "Prefabs/Token",
+            [ItemType.Token] = "Prefabs/GameBoard/Token",
             [ItemType.Ice] = "Prefabs/Obstacles/Ice",
             [ItemType.Stone] = "Prefabs/Obstacles/Stone",
             [ItemType.ReinforcedStone] = "Prefabs/Obstacles/ReinforcedStone",

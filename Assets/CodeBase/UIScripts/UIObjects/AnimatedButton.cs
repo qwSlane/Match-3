@@ -7,7 +7,7 @@ namespace CodeBase.UIScripts.UIObjects
 {
     public class AnimatedButton : MonoBehaviour
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected Button _button;
         [SerializeField] private Animation _animation;
         [SerializeField] private AudioSource _audio;
 

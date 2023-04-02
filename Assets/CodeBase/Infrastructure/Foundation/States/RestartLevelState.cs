@@ -17,11 +17,12 @@ namespace CodeBase.Infrastructure.Foundation.States
         public void Enter()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
+            _stateMachine.Enter<GameState>();
         }
 
         public void Exit()
         {
-            _stateMachine.Enter<GameState>();
+            
         }
     }
 }

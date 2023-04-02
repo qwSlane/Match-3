@@ -8,7 +8,7 @@ namespace CodeBase.Infrastructure.Foundation
 {
     public class Bootstrapper : MonoBehaviour
     {
-        private const string SceneName = "Game";
+        private const string SceneName = "Menu";
     
         private StateMachine _stateMachine;
 

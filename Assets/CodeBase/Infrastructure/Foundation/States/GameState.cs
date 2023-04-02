@@ -4,12 +4,14 @@ using CodeBase.Infrastructure.Foundation.States.Intefaces;
 
 namespace CodeBase.Infrastructure.Foundation.States
 {
-    public class GameState: IState
+    public class GameState : IState
     {
-        private IState _stateImplementation;
-        
-        public void Exit() {}
+        public void Enter()
+        {
+        }
 
-        public void Enter() { }
+        public void Exit()
+        {
+        }
     }
 }

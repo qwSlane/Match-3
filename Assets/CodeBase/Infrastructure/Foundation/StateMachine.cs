@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using CodeBase.EditorStructures;
 using CodeBase.Infrastructure.Foundation.States;
 using CodeBase.Infrastructure.Foundation.States.Intefaces;
 
@@ -12,14 +13,28 @@ namespace CodeBase.Infrastructure.Foundation
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _currentState;
 
+        private LevelConfig _currentLevel;
+
+        public LevelConfig LevelData
+        {
+            get => _currentState is GameState ? _currentLevel : null;
+            set
+            {
+                if (_currentState is LoadLevelState)
+                {
+                    _currentLevel = value;
+                }
+            }
+        }
+
         public StateMachine()
         {
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(SceneLoadState)] = new SceneLoadState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState(this),
                 [typeof(GameState)] = new GameState(),
                 [typeof(RestartLevelState)] = new RestartLevelState(this),
-                
             };
         }
 

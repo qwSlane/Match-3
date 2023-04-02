@@ -11,6 +11,7 @@ using CodeBase.BoardItems;
 using CodeBase.BoardItems.Cell;
 using CodeBase.EditorStructures;
 using CodeBase.Goals;
+using CodeBase.Infrastructure.Foundation;
 using CodeBase.Services;
 
 namespace CodeBase.Infrastructure
@@ -32,27 +33,15 @@ namespace CodeBase.Infrastructure
 
         [Inject]
         public void Initialize(GameBoard board, ItemsChain chain, ItemCrusher crusher,
-            BoardFiller filler, GoalsService goalsService)
+            BoardFiller filler, GoalsService goalsService, StateMachine stateMachine)
         {
             _goalsService = goalsService;
             _gameBoard = board;
             _itemsChain = chain;
             _boardFiller = filler;
             _itemCrusher = crusher;
+            _config = stateMachine.LevelData;
 
-            var path = Path.Combine(Application.streamingAssetsPath + LevelPath);
-
-#if UNITY_ANDROID
-            WWW reader = new WWW(path);
-            while (!reader.isDone)
-            { }
-            var data = reader.text;
-#elif UNITY_EDITOR
-            StreamReader reader = new StreamReader(path);
-            var data = reader.ReadToEnd();
-            reader.Close();
-#endif
-            _config = JsonConvert.DeserializeObject<LevelConfig>(data);
             _inputService.Press += Press;
             _inputService.PressUp += PressUp;
 
