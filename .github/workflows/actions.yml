@@ -31,9 +31,6 @@ jobs:
           git add .
           git reset --hard
 
-      - name: Restore Library cache
-        uses: actions/cache@v2
-
       # Test
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
