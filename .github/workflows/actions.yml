@@ -33,22 +33,14 @@ jobs:
 
       - name: Restore Library cache
         uses: actions/cache@v2
-        with:
-          path: test-projects/test-project/Library
-          key: Library-test-project-WebGL
 
       # Test
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
-        with:
-          projectPath: test-projects/test-project
 
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
-        with:
-          projectPath: test-projects/test-project
-          targetPlatform: WebGL
 
       # Output
       - uses: actions/upload-artifact@v2
