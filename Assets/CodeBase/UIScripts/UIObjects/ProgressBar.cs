@@ -3,6 +3,7 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 namespace CodeBase.UIScripts.UIObjects
 {
@@ -13,6 +14,7 @@ namespace CodeBase.UIScripts.UIObjects
         [SerializeField] private RectTransform _image;
 
         public TextMeshProUGUI Current => _current;
+        public int CurrentScore => int.Parse(_current.text); 
 
         private int _totalScore;
         private int _currentScore;

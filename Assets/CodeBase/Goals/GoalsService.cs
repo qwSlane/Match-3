@@ -20,6 +20,8 @@ namespace CodeBase.Goals
         private int _currentGoals;
         private int _turns;
 
+        public ProgressBar ScoreBar => _scoreBar;
+
         private Dictionary<ItemType, UIGoal> _obstacleGoals;
         private Dictionary<TokenType, UIGoal> _tokenGoals;
         private ProgressBar _scoreBar;

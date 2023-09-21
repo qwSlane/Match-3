@@ -1,10 +1,8 @@
 ﻿// Copyright (c) 2012-2021 FuryLion Group. All Rights Reserved.
 
-using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using Newtonsoft.Json;
 using CodeBase.Board;
 using CodeBase.Board.BoardKernel;
 using CodeBase.BoardItems;

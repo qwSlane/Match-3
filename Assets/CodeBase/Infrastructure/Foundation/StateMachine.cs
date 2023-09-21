@@ -13,6 +13,8 @@ namespace CodeBase.Infrastructure.Foundation
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _currentState;
 
+        public IExitableState CurrentState => _currentState;
+
         private LevelConfig _currentLevel;
 
         public LevelConfig LevelData
