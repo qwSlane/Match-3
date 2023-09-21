@@ -9,7 +9,7 @@ env:
 
 jobs:
   readmeWorkflow:
-    name: Readme Workflow ✨
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -33,7 +33,9 @@ jobs:
 
       # Test
       - name: Run tests
-        uses: game-ci/unity-test-runner@v2
+        uses: game-ci/unity-test-runner@v3
+        with:
+          packageMode: true
 
       # Build
       - name: Build project
