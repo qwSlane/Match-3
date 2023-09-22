@@ -38,4 +38,7 @@ jobs:
         with:
           name: Coverage results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
-    
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: WebGL
