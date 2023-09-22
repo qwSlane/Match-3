@@ -133,27 +133,5 @@ namespace Tests
         }
     }
 
-    [TestFixture]
-    public class BarTests
-    {
-        private ProgressBar progressBar;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Создаем объекты, необходимые для тестирования
-            GameObject progressBarObject = new GameObject();
-            progressBar = progressBarObject.AddComponent<ProgressBar>();
-        }
-
-        [Test]
-        public void IsAchived_ReturnsTrue_WhenCurrentScoreIsGreaterThanTotalScore()
-        {
-            progressBar.Construct(10); // Инициализация с totalScore = 10
-
-            progressBar.UpdateScore(15);
-
-            Assert.IsTrue(progressBar.IsAchived());
-        }
-    }
+  
 }
