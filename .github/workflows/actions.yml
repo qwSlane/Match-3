@@ -14,7 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         testMode:
-          - playmode
           - editmode
     steps:
       - uses: actions/checkout@v2
@@ -44,6 +43,12 @@ jobs:
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          targetPlatform: Android
 
       # Output
       - uses: actions/upload-artifact@v2
