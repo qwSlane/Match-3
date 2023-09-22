@@ -11,15 +11,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Set up Unity
+    - name : Build 
       uses: game-ci/unity-builder@v3
       with:
         unity-version: 2021.3.4f1
-
-    - name: Build Unity project
-      run: |
-        unity-editor -quit -batchmode -projectPath . -executeMethod BuildScript.Build -logFile build.log
+        
 
     - name: Archive build
       uses: actions/upload-artifact@v2
