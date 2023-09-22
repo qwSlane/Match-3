@@ -11,3 +11,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Set up Unity
+      uses: actions/checkout@v2
+    - name: Test in edit mode
+      uses: actions/checkout@v2
